@@ -116,9 +116,11 @@ function NursePatientDetail() {
         <Link to="/nurse/education" className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95">
           <BookOpen className="size-5 text-amber-600" /> 宣教
         </Link>
-        <Link to="/nurse/followup" className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95">
-          <ClipboardCheck className="size-5 text-sky-600" /> 随访
-        </Link>
+        {(p.stage === "院外" || p.stage === "待出院") && (
+          <Link to="/nurse/followup" className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95">
+            <ClipboardCheck className="size-5 text-sky-600" /> 随访
+          </Link>
+        )}
         <button
           onClick={() => setTransferOpen(true)}
           className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95"
