@@ -124,9 +124,9 @@ function NurseFollowup() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1.5">
-                      {"priority" in p && p.priority && (
+                      {(p as { priority?: string }).priority && (
                         <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700">
-                          {p.priority}
+                          {(p as { priority?: string }).priority}
                         </span>
                       )}
                       <p className="text-[15px] font-bold text-foreground">{p.name}</p>

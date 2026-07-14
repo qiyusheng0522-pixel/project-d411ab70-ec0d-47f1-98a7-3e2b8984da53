@@ -81,7 +81,7 @@ function NursePatients() {
   const filtered = list.filter(
     (p) =>
       (stage === "全部" || p.stage === stage) &&
-      (cond === "全部" || p.conds.includes(cond)) &&
+      (cond === "全部" || (p.conds as readonly string[]).includes(cond)) &&
       (p.name.includes(q) || p.conds.some((c) => c.includes(q))),
   );
 
