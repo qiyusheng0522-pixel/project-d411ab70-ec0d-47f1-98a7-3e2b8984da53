@@ -25,7 +25,7 @@ function PatientDetail() {
           <div className="min-w-0 flex-1">
             <p className="text-lg font-bold">{p.name}</p>
             <p className="text-xs opacity-90">{p.gender} · {p.age} 岁 · 编号 {p.id.toUpperCase()}</p>
-            <p className="mt-1 text-xs opacity-90">{p.tag}</p>
+            
           </div>
         </div>
         <div className="mt-3 grid grid-cols-3 gap-2 text-center">
