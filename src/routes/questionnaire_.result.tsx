@@ -393,36 +393,35 @@ function ResultPage() {
         )}
       </div>
 
-      {/* 风险详情解读 */}
-      <section className="mx-4 mt-5">
-        <h2 className="mb-3 text-[15px] font-bold text-foreground">风险详细解读</h2>
-        <div className="space-y-5 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
-          {problems.map((p, idx) => (
-            <div key={p.tag + idx} className="space-y-2">
-              <span
-                className={`inline-flex items-center rounded-md px-2.5 py-0.5 text-[12px] font-bold text-white ${toneTagBg[p.tone]}`}
-              >
-                {p.tag}
-              </span>
-              {p.paragraphs.map((t, i) => (
-                <p key={i} className="text-[14px] leading-[1.85] text-foreground/85">
-                  {t}
-                </p>
-              ))}
-              {idx < problems.length - 1 && <div className="pt-1 border-b border-dashed border-border/60" />}
-            </div>
-          ))}
+      {/* 风险评估展示内容 */}
+      <section className="mx-4 mt-5 mb-6 space-y-4">
+        <div className="rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
+          <p className="text-[14px] leading-[1.85] text-foreground/85">
+            初步判定您属于<span className="font-bold text-rose-500">脑卒中高危人群</span>，结合日常指标为您说明：
+          </p>
         </div>
-      </section>
 
-      {/* 个人建议事项 */}
-      {allAdvice.length > 0 && (
-        <section className="mx-4 mt-5">
-          <h2 className="mb-3 text-[15px] font-bold text-foreground">
-            给您的个人建议
-          </h2>
-          <ol className="space-y-2.5 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
-            {allAdvice.map((tip, i) => (
+        <div className="rounded-2xl bg-card p-4 shadow-[var(--shadow-card)] space-y-2">
+          <h3 className="text-[15px] font-bold text-foreground">现状说明</h3>
+          <p className="text-[14px] leading-[1.85] text-foreground/85">
+            血管高危人群只要长期规范养护血压、血脂，就能大幅降低脑梗、脑出血发病概率，无需过度焦虑。
+          </p>
+          <p className="text-[14px] leading-[1.85] text-foreground/85">
+            高危提示仅代表血管存在损伤诱因，及时调整饮食、作息、用药，可平稳保护脑血管。
+          </p>
+        </div>
+
+        <div className="rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
+          <h3 className="mb-3 text-[15px] font-bold text-foreground">
+            每日日常血管养护<span className="text-[12px] font-medium text-emerald-600">（坚持就能见效）</span>
+          </h3>
+          <ol className="space-y-2.5">
+            {[
+              "早晚监测血压、定期复查血脂，完整留存数值记录",
+              "遵从线下医生处方服药，不擅自停服降压、稳脂药物",
+              "饮食控盐控油，避开咸菜、肥肉、油炸食品，增加杂粮、果蔬摄入",
+              "避免长期久坐、熬夜、暴怒，每周坚持快走、太极等温和运动",
+            ].map((tip, i) => (
               <li key={tip} className="flex gap-3">
                 <span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary/10 text-[12px] font-bold text-primary">
                   {i + 1}
@@ -431,23 +430,24 @@ function ResultPage() {
               </li>
             ))}
           </ol>
-        </section>
-      )}
+        </div>
 
-      {/* 健康目标 */}
-      {allGoals.length > 0 && (
-        <section className="mx-4 mt-5 mb-6">
-          <h2 className="mb-3 text-[15px] font-bold text-foreground">健康目标</h2>
-          <ul className="space-y-2 rounded-2xl bg-gradient-to-br from-emerald-50 to-sky-50 p-4 shadow-[var(--shadow-card)]">
-            {allGoals.map((g) => (
-              <li key={g} className="flex items-start gap-2">
-                <span className="mt-1.5 inline-block size-1.5 shrink-0 rounded-full bg-emerald-500" />
-                <p className="flex-1 text-[14px] leading-[1.8] text-foreground/85">{g}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+        <div className="rounded-2xl bg-gradient-to-br from-sky-50 to-violet-50 p-4 shadow-[var(--shadow-card)]">
+          <h3 className="mb-2 text-[15px] font-bold text-foreground">
+            定期专项复查<span className="text-[12px] font-medium text-sky-600">（每年必做）</span>
+          </h3>
+          <p className="text-[14px] leading-[1.85] text-foreground/85">
+            每年完成颈动脉彩超、血脂四项、基础脑血管筛查，提前发现血管斑块及时干预。
+          </p>
+        </div>
+
+        <div className="rounded-2xl bg-gradient-to-br from-emerald-50 to-sky-50 p-4 shadow-[var(--shadow-card)]">
+          <h3 className="mb-2 text-[15px] font-bold text-foreground">专属血管养护帮扶</h3>
+          <p className="text-[14px] leading-[1.85] text-foreground/85">
+            如果还不清楚低盐低脂餐搭配、不知道适合心脑血管人群的运动强度，可咨询健康管理师，定制贴合您生活习惯的个性化养护方案。
+          </p>
+        </div>
+      </section>
 
       <div className="h-6" />
     </MobileShell>
