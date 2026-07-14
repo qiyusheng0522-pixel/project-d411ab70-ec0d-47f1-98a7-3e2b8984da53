@@ -2,12 +2,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ChevronLeft, MessageSquare, ClipboardCheck, HeartPulse, AlertTriangle, Pill,
   Activity, Phone, MapPin, Users, FlaskConical, Utensils, Moon, Cigarette,
-  Droplet, BookOpen, Send, X, NotebookPen, Sparkles,
+  Droplet, BookOpen, Send, X, NotebookPen, Sparkles, Building2, Check, ArrowRightLeft,
 } from "lucide-react";
 import { useState } from "react";
 import { nurseList } from "./nurse.patients";
 
 export const Route = createFileRoute("/nurse/patients/$id")({ component: NursePatientDetail });
+
+const communities = [
+  { id: "c1", name: "鼓楼区湖南路社区卫生服务中心", tag: "距离 1.2km · 已签约" },
+  { id: "c2", name: "玄武区新街口社区卫生服务中心", tag: "距离 2.6km" },
+  { id: "c3", name: "秦淮区红花社区卫生服务中心", tag: "距离 3.4km" },
+];
 
 const quickMsgs = [
   "请按医嘱继续服药,勿自行停药",
@@ -31,6 +37,15 @@ function NursePatientDetail() {
   const [toast, setToast] = useState<string | null>(null);
   const [notes, setNotes] = useState(seedNotes);
   const [noteDraft, setNoteDraft] = useState("");
+  const [transferOpen, setTransferOpen] = useState(false);
+  const [transferred, setTransferred] = useState(false);
+  const [community, setCommunity] = useState(communities[0].id);
+  const [handover, setHandover] = useState(
+    "术后恢复平稳,mRS 2 级。华法林 3mg qd,INR 目标 2-3。血压近 3 天偏高,建议社区继续监测。",
+  );
+  const [followupPlan, setFollowupPlan] = useState("首次上门 3 天内 · 之后每 2 周随访 1 次,持续 3 个月");
+
+  const isDischargeReady = p.stage === "待出院";
 
   const send = (raw?: string) => {
     const text = (raw ?? draft).trim();
@@ -39,6 +54,14 @@ function NursePatientDetail() {
     setDraft("");
     setToast(`已发送给 ${p.name}:${text.length > 14 ? text.slice(0, 14) + "…" : text}`);
     setTimeout(() => setToast(null), 2200);
+  };
+
+  const confirmTransfer = () => {
+    const c = communities.find((x) => x.id === community);
+    setTransferred(true);
+    setTransferOpen(false);
+    setToast(`已将 ${p.name} 下转至${c?.name ?? "社区"}`);
+    setTimeout(() => setToast(null), 2400);
   };
 
   const addNote = () => {
@@ -96,10 +119,38 @@ function NursePatientDetail() {
         <Link to="/nurse/followup" className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95">
           <ClipboardCheck className="size-5 text-sky-600" /> 随访
         </Link>
-        <Link to="/nurse/patients" className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95">
-          <AlertTriangle className="size-5 text-rose-500" /> 预警
-        </Link>
+        <button
+          onClick={() => setTransferOpen(true)}
+          className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95"
+        >
+          <ArrowRightLeft className="size-5 text-indigo-600" /> 下转社区
+        </button>
       </section>
+
+      {isDischargeReady && (
+        <section className="mx-3 mt-3 flex items-center gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-3">
+          <div className="grid size-9 shrink-0 place-items-center rounded-full bg-sky-500 text-white">
+            <Building2 className="size-4" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-[13px] font-bold text-sky-800">
+              {transferred ? "已下转至社区,持续随访中" : "该患者符合出院条件,可下转社区继续管理"}
+            </p>
+            <p className="mt-0.5 text-[11px] text-sky-700/80">
+              {transferred ? "社区已接收档案与随访计划" : "生成下转单 · 同步近期用药、随访计划与预警"}
+            </p>
+          </div>
+          <button
+            onClick={() => setTransferOpen(true)}
+            className={
+              "shrink-0 rounded-full px-3 py-1.5 text-xs font-bold active:scale-95 " +
+              (transferred ? "bg-white text-sky-700" : "bg-sky-500 text-white")
+            }
+          >
+            {transferred ? "查看" : "下转"}
+          </button>
+        </section>
+      )}
 
       <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
         <p className="text-sm font-bold text-foreground">基本信息</p>
@@ -334,6 +385,90 @@ function NursePatientDetail() {
           </div>
         </div>
       )}
+
+      {transferOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center"
+          onClick={() => setTransferOpen(false)}
+        >
+          <div
+            className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-card p-4 shadow-[var(--shadow-card)] sm:rounded-3xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-2">
+              <div className="grid size-9 place-items-center rounded-full bg-indigo-100 text-indigo-600">
+                <ArrowRightLeft className="size-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-bold text-foreground">下转社区 · {p.name}</p>
+                <p className="text-[11px] text-muted-foreground">选择接收社区并同步随访计划</p>
+              </div>
+              <button onClick={() => setTransferOpen(false)} className="grid size-8 place-items-center rounded-full active:scale-95" aria-label="关闭">
+                <X className="size-4" />
+              </button>
+            </div>
+
+            <p className="mt-3 text-[11px] font-semibold text-muted-foreground">接收社区</p>
+            <ul className="mt-1.5 space-y-1.5">
+              {communities.map((c) => (
+                <li key={c.id}>
+                  <button
+                    onClick={() => setCommunity(c.id)}
+                    className={
+                      "flex w-full items-center gap-2 rounded-xl border p-2.5 text-left active:scale-[0.99] " +
+                      (community === c.id
+                        ? "border-indigo-400 bg-indigo-50"
+                        : "border-border bg-background")
+                    }
+                  >
+                    <Building2 className="size-4 shrink-0 text-indigo-500" />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[13px] font-semibold text-foreground">{c.name}</p>
+                      <p className="truncate text-[11px] text-muted-foreground">{c.tag}</p>
+                    </div>
+                    {community === c.id && <Check className="size-4 text-indigo-500" />}
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-3 text-[11px] font-semibold text-muted-foreground">交接摘要</p>
+            <textarea
+              value={handover}
+              onChange={(e) => setHandover(e.target.value)}
+              rows={3}
+              className="mt-1.5 w-full resize-y rounded-xl border border-border bg-background p-3 text-[12px] leading-relaxed text-foreground outline-none focus:border-indigo-400"
+            />
+
+            <p className="mt-3 text-[11px] font-semibold text-muted-foreground">随访计划</p>
+            <input
+              value={followupPlan}
+              onChange={(e) => setFollowupPlan(e.target.value)}
+              className="mt-1.5 w-full rounded-xl border border-border bg-background p-2.5 text-[12px] text-foreground outline-none focus:border-indigo-400"
+            />
+
+            <div className="mt-3 rounded-xl bg-muted/50 p-2.5 text-[11px] text-muted-foreground">
+              同步资料:近 7 日血压趋势 · 当前用药 · 化验结果 · 护理备注 · 预警提示
+            </div>
+
+            <div className="mt-3 flex gap-2">
+              <button
+                onClick={() => setTransferOpen(false)}
+                className="flex-1 rounded-full bg-muted py-2.5 text-sm font-semibold text-muted-foreground active:scale-95"
+              >
+                取消
+              </button>
+              <button
+                onClick={confirmTransfer}
+                className="flex flex-1 items-center justify-center gap-1 rounded-full bg-indigo-500 py-2.5 text-sm font-bold text-white active:scale-95"
+              >
+                <Check className="size-4" /> 确认下转
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       {toast && (
         <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-lg">
