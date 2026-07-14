@@ -210,19 +210,34 @@ function ChatDetail() {
           ))}
         </div>
         <div className="flex items-center gap-2 px-3 py-2">
-          <button className="grid size-9 place-items-center rounded-full bg-muted text-muted-foreground active:scale-95">
-            <Paperclip className="size-4" />
+          <button
+            onClick={generateAi}
+            disabled={aiLoading}
+            className="grid size-9 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground active:scale-95 disabled:opacity-60"
+            aria-label="重新生成 AI 回复"
+            title="刷新 AI 建议"
+          >
+            <RefreshCw className={cn("size-4", aiLoading && "animate-spin")} />
           </button>
-          <button className="grid size-9 place-items-center rounded-full bg-muted text-muted-foreground active:scale-95">
-            <ImageIcon className="size-4" />
-          </button>
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter") send(); }}
-            placeholder="输入回复…"
-            className="min-w-0 flex-1 rounded-full bg-muted px-4 py-2 text-sm outline-none focus:bg-background"
-          />
+          <div className="relative min-w-0 flex-1">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") send(); }}
+              placeholder={listening ? "正在聆听…" : "输入回复或点麦克风语音输入…"}
+              className="w-full rounded-full bg-muted py-2 pl-4 pr-11 text-sm outline-none focus:bg-background"
+            />
+            <button
+              onClick={toggleVoice}
+              className={cn(
+                "absolute right-1 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full active:scale-95",
+                listening ? "bg-rose-500 text-white animate-pulse" : "bg-transparent text-muted-foreground hover:text-foreground",
+              )}
+              aria-label={listening ? "停止语音输入" : "开始语音输入"}
+            >
+              {listening ? <MicOff className="size-4" /> : <Mic className="size-4" />}
+            </button>
+          </div>
           <button
             onClick={() => send()}
             className="grid size-10 shrink-0 place-items-center rounded-full bg-sky-500 text-white active:scale-95"
