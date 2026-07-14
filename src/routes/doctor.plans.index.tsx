@@ -142,25 +142,25 @@ function DoctorPlans() {
             params={{ id: p.id }}
             className="block rounded-2xl bg-card p-4 shadow-[var(--shadow-card)] active:scale-[0.99]"
           >
-            <div className="flex items-start gap-2">
-              <p className="text-base font-bold text-foreground">{p.title}</p>
+            <div className="flex items-center gap-2">
+              <div className="grid size-9 shrink-0 place-items-center rounded-full bg-sky-100 text-sky-600 text-sm font-bold">
+                {p.patient.slice(0, 1)}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[15px] font-bold text-foreground">{p.patient}</p>
+                <p className="truncate text-[11px] text-muted-foreground">{p.disease}</p>
+              </div>
               <span className={
                 "rounded-md px-1.5 py-0.5 text-[11px] font-semibold " +
                 (p.status === "reviewing" ? "bg-sky-100 text-sky-600" : "bg-amber-100 text-amber-600")
               }>
                 {p.status === "reviewing" ? "审核中" : "待审核"}
               </span>
-              <span className="ml-auto rounded-md bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground">
-                {p.tag}
-              </span>
             </div>
+            <p className="mt-2 text-[13px] font-semibold text-foreground">{p.title}</p>
             <p className="mt-1 text-xs text-muted-foreground">{p.dept} · {p.time}</p>
-            <p className="mt-1 text-[13px] font-semibold text-sky-600">{p.disease}</p>
-            <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-foreground/80">
-              <span className="font-semibold text-foreground">普通评估: </span>{p.assessment}
-            </p>
             <div className="mt-3 flex items-center justify-end border-t border-border/60 pt-2 text-xs font-semibold text-sky-600">
-              查看详情 <ChevronRight className="size-4" />
+              查看方案详情 <ChevronRight className="size-4" />
             </div>
           </Link>
           </li>
@@ -171,6 +171,7 @@ function DoctorPlans() {
           </li>
         )}
       </ul>
+
 
       <div className="mx-3 mt-3 flex items-center gap-2 rounded-2xl bg-sky-50 px-3 py-2 text-[11px] text-sky-700">
         <Users2 className="size-3.5" /> 会诊查看功能:多学科医生可协同批注方案
