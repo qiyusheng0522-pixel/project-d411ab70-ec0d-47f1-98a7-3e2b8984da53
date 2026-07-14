@@ -41,12 +41,11 @@ function PatientDetail() {
         </div>
       </section>
 
-      <section className="mx-3 mt-3 grid grid-cols-4 gap-2">
+      <section className="mx-3 mt-3 grid grid-cols-3 gap-2">
         {[
           { icon: MessageSquare, label: "沟通", to: "/doctor/chat" },
-          { icon: ClipboardCheck, label: "开方案", to: "/doctor/plans" },
-          { icon: HeartPulse, label: "档案", to: "/doctor/patients" },
-          { icon: AlertTriangle, label: "预警", to: "/doctor/patients" },
+          { icon: Phone, label: "电话", to: "/doctor/patients" },
+          { icon: ClipboardCheck, label: "方案审核", to: "/doctor/plans" },
         ].map((a) => {
           const Icon = a.icon;
           return (
@@ -62,6 +61,7 @@ function PatientDetail() {
           );
         })}
       </section>
+
 
       <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
         <p className="text-sm font-bold text-foreground">基本信息</p>
