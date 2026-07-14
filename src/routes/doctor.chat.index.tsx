@@ -4,7 +4,7 @@ import { PortalShell } from "@/components/PortalShell";
 import { doctorTabs } from "./doctor.index";
 import { useState } from "react";
 
-export const Route = createFileRoute("/doctor/chat")({ component: DoctorChat });
+export const Route = createFileRoute("/doctor/chat/")({ component: DoctorChat });
 
 const threads = [
   { id: "1", name: "张大伯", last: "医生,今天早上血压 158/96,要不要加药?", time: "10:22", unread: 2, pin: true },
