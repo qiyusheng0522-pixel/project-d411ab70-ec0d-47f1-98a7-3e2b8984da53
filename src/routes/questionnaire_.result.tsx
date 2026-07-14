@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import { MobileShell } from "@/components/MobileShell";
+import virtualHuman from "@/assets/virtual-human.png";
 import {
   loadSelf, loadLife, ensureDefaultQuestionnaires,
   scoreEssen, essenLevel, befastPositive, scorePHQ9, phq9Level,
@@ -31,31 +32,21 @@ const toneChipActive: Record<Tone, string> = {
   danger: "bg-rose-50 text-rose-600 border-rose-200",
 };
 
-// Candidate tags that may be shown as "concerns to watch" even if not triggered
-const DEFAULT_WATCH_TAGS = [
-  "预防三高", "血脂管理", "体重控制", "规律运动", "戒烟限酒", "睡眠健康", "情绪调节", "定期复诊",
-];
+// Disease/medical tags (疾病标签) - clinical concerns
+const DISEASE_TAGS = new Set([
+  "急性卒中征象", "卒中复发风险", "功能残障", "情绪障碍", "用药不规律",
+  "预防三高", "血脂管理", "定期复诊",
+]);
 
-function BodySilhouette({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 200 380" className={className} fill="currentColor" aria-hidden>
-      <ellipse cx="100" cy="42" rx="26" ry="30" />
-      <rect x="90" y="66" width="20" height="18" rx="6" />
-      <path d="M62 92 Q100 78 138 92 L150 190 Q150 210 138 220 L62 220 Q50 210 50 190 Z" />
-      <path d="M56 96 Q34 150 42 220 Q46 240 54 240 Q62 236 58 220 Q56 168 68 110 Z" />
-      <path d="M144 96 Q166 150 158 220 Q154 240 146 240 Q138 236 142 220 Q144 168 132 110 Z" />
-      <path d="M62 218 L138 218 L134 250 L66 250 Z" />
-      <path d="M66 250 Q60 320 68 366 Q72 374 82 372 Q90 370 92 360 Q94 310 96 252 Z" />
-      <path d="M134 250 Q140 320 132 366 Q128 374 118 372 Q110 370 108 360 Q106 310 104 252 Z" />
-      <g opacity="0.35">
-        <ellipse cx="88" cy="130" rx="14" ry="20" />
-        <ellipse cx="112" cy="130" rx="14" ry="20" />
-        <ellipse cx="100" cy="170" rx="18" ry="14" />
-        <rect x="86" y="188" width="28" height="26" rx="8" />
-      </g>
-    </svg>
-  );
+// Lifestyle default watch tags (生活标签)
+const DEFAULT_LIFE_TAGS = ["体重控制", "规律运动", "戒烟限酒", "睡眠健康", "情绪调节"];
+const DEFAULT_DISEASE_TAGS = ["预防三高", "血脂管理", "定期复诊"];
+
+function categoryOf(tag: string): "disease" | "life" {
+  return DISEASE_TAGS.has(tag) ? "disease" : "life";
 }
+
+
 
 const GUIDE_KEY = "questionnaire_result_guide_collapsed";
 
@@ -326,28 +317,39 @@ function ResultPage() {
     );
   }
 
-  const primary = problems[0]?.tone ?? "ok";
-  const bodyTint =
-    primary === "danger" ? "text-rose-200/70"
-    : primary === "warn" ? "text-amber-200/80"
-    : "text-sky-200/70";
 
-  // Build tag ring: active problem tags first, then default watch tags to fill
-  const activeTags = problems.filter((p) => p.tone !== "ok").map((p) => ({ label: p.tag, tone: p.tone, active: true }));
-  const usedNames = new Set(activeTags.map((t) => t.label));
-  const filler = DEFAULT_WATCH_TAGS.filter((t) => !usedNames.has(t)).slice(0, Math.max(0, 6 - activeTags.length))
-    .map((t) => ({ label: t, tone: "ok" as Tone, active: false }));
-  const ringTags = [...activeTags, ...filler].slice(0, 6);
+  type RingTag = { label: string; tone: Tone; active: boolean; kind: "disease" | "life" };
 
-  // Ring positions: 6 slots around the circle (top-left, top-right, mid-left, mid-right, bottom-left, bottom-right)
-  const ringPositions = [
-    "left-0 top-4",
-    "right-0 top-4",
-    "left-[-8px] top-1/2 -translate-y-1/2",
-    "right-[-8px] top-1/2 -translate-y-1/2",
-    "left-2 bottom-4",
-    "right-2 bottom-4",
-  ];
+  // Split active problem tags by category
+  const activeAll: RingTag[] = problems
+    .filter((p) => p.tone !== "ok")
+    .map((p) => ({ label: p.tag, tone: p.tone, active: true, kind: categoryOf(p.tag) }));
+  const usedNames = new Set(activeAll.map((t) => t.label));
+
+  const diseaseActive = activeAll.filter((t) => t.kind === "disease");
+  const lifeActive = activeAll.filter((t) => t.kind === "life");
+
+  const diseaseFiller: RingTag[] = DEFAULT_DISEASE_TAGS
+    .filter((t) => !usedNames.has(t))
+    .slice(0, Math.max(0, 3 - diseaseActive.length))
+    .map((t) => ({ label: t, tone: "ok" as Tone, active: false, kind: "disease" }));
+  const lifeFiller: RingTag[] = DEFAULT_LIFE_TAGS
+    .filter((t) => !usedNames.has(t))
+    .slice(0, Math.max(0, 3 - lifeActive.length))
+    .map((t) => ({ label: t, tone: "ok" as Tone, active: false, kind: "life" }));
+
+  const diseaseTags = [...diseaseActive, ...diseaseFiller].slice(0, 3);
+  const lifeTags = [...lifeActive, ...lifeFiller].slice(0, 3);
+
+  const chipClass = (t: RingTag) => {
+    if (!t.active) {
+      return t.kind === "disease"
+        ? "border-rose-100 bg-white/80 text-rose-300"
+        : "border-emerald-100 bg-white/80 text-emerald-400";
+    }
+    return toneChipActive[t.tone];
+  };
+
 
 
 
@@ -404,47 +406,82 @@ function ResultPage() {
       )}
 
 
-      {/* 风险标签环形展示 */}
-      <div className="mx-4 mt-4 rounded-3xl bg-gradient-to-b from-sky-50 via-sky-50/60 to-white p-4 pb-6">
+      {/* 风险标签展示 */}
+      <div className="mx-4 mt-4 rounded-3xl bg-gradient-to-b from-sky-50 via-sky-50/60 to-white p-4 pb-5">
         <p className="text-center text-[13px] font-medium text-sky-700/80">
           您当前建议关注的卒中及生活风险
         </p>
-        <div className="relative mx-auto mt-3 h-[260px] w-full max-w-[360px]">
-          {/* 中心圆盘 + 人体 */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="relative grid size-[160px] place-items-center rounded-full bg-gradient-to-br from-sky-100 via-white to-violet-100 shadow-[0_10px_30px_-12px_rgba(56,189,248,0.55)] ring-4 ring-white">
-              <BodySilhouette className={`h-32 w-auto ${bodyTint}`} />
-              <span className="absolute right-4 top-6 text-sky-300">✦</span>
-              <span className="absolute left-5 bottom-8 text-violet-300">✦</span>
-            </div>
-          </div>
-          {/* 环形标签 */}
-          {ringTags.map((t, i) => (
-            <span
-              key={t.label + i}
-              className={`absolute inline-flex max-w-[7.5rem] items-center justify-center rounded-full border px-3 py-1.5 text-[13px] font-semibold shadow-sm ${
-                t.active
-                  ? toneChipActive[t.tone]
-                  : "border-slate-200 bg-white/80 text-slate-400"
-              } ${ringPositions[i]}`}
-            >
-              {t.label}
-            </span>
-          ))}
+
+        {/* 分类图例 */}
+        <div className="mt-3 flex items-center justify-center gap-4 text-[11px] font-medium">
+          <span className="flex items-center gap-1.5 text-rose-600">
+            <span className="inline-block size-2 rounded-full bg-rose-500" />
+            疾病风险
+          </span>
+          <span className="flex items-center gap-1.5 text-emerald-600">
+            <span className="inline-block size-2 rounded-full bg-emerald-500" />
+            生活风险
+          </span>
         </div>
-        {activeTags.length > 0 && (
-          <div className="mt-2 flex flex-wrap justify-center gap-1.5">
-            {activeTags.map((t) => (
+
+        {/* 虚拟人 + 左右分栏标签 */}
+        <div className="mt-3 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+          {/* 左：疾病标签 */}
+          <div className="flex flex-col items-end gap-2">
+            {diseaseTags.map((t) => (
+              <span
+                key={"d-" + t.label}
+                className={`inline-flex max-w-full items-center gap-1 rounded-full border px-2.5 py-1 text-[12px] font-semibold shadow-sm ${chipClass(t)}`}
+              >
+                <span className={`inline-block size-1.5 rounded-full ${t.active ? toneTagBg[t.tone] : "bg-rose-300"}`} />
+                {t.label}
+              </span>
+            ))}
+          </div>
+
+          {/* 中：虚拟人 */}
+          <div className="relative grid size-[170px] place-items-center rounded-full bg-gradient-to-br from-sky-100 via-white to-violet-100 shadow-[0_10px_30px_-12px_rgba(56,189,248,0.55)] ring-4 ring-white">
+            <img
+              src={virtualHuman}
+              alt="虚拟人形象"
+              width={512}
+              height={768}
+              loading="lazy"
+              className="h-[150px] w-auto object-contain drop-shadow-sm"
+            />
+            <span className="absolute right-3 top-4 text-sky-300">✦</span>
+            <span className="absolute left-4 bottom-6 text-violet-300">✦</span>
+          </div>
+
+          {/* 右：生活标签 */}
+          <div className="flex flex-col items-start gap-2">
+            {lifeTags.map((t) => (
+              <span
+                key={"l-" + t.label}
+                className={`inline-flex max-w-full items-center gap-1 rounded-full border px-2.5 py-1 text-[12px] font-semibold shadow-sm ${chipClass(t)}`}
+              >
+                <span className={`inline-block size-1.5 rounded-full ${t.active ? toneTagBg[t.tone] : "bg-emerald-300"}`} />
+                {t.label}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {activeAll.length > 0 && (
+          <div className="mt-3 flex flex-wrap justify-center gap-1.5">
+            {activeAll.map((t) => (
               <span
                 key={"legend-" + t.label}
-                className={`inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-semibold text-white ${toneTagBg[t.tone]}`}
+                className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-semibold text-white ${toneTagBg[t.tone]}`}
               >
+                <span className="opacity-90">{t.kind === "disease" ? "医" : "活"}</span>
                 {t.label}
               </span>
             ))}
           </div>
         )}
       </div>
+
 
       {/* 风险评估展示内容 */}
       <section className="mx-4 mt-5 mb-6 space-y-4">
