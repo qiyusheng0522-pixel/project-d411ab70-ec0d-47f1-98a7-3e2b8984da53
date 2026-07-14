@@ -458,6 +458,27 @@ function ResultPage() {
         </div>
       </section>
 
+      {/* 底部：跳转至健康管理方案 */}
+      <div className="mx-4 mb-6">
+        <Link
+          to="/plan"
+          className="group flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-sky-500 to-violet-500 p-4 text-white shadow-[var(--shadow-card)] active:opacity-90"
+        >
+          <div className="flex items-center gap-3">
+            <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/20">
+              <ClipboardList className="size-5" />
+            </span>
+            <div className="flex flex-col">
+              <span className="text-[15px] font-bold">查看我的健康管理方案</span>
+              <span className="text-[12px] font-medium text-white/85">
+                基于本次风险评估，为您匹配个性化干预建议
+              </span>
+            </div>
+          </div>
+          <ArrowRight className="size-5 shrink-0 transition-transform group-active:translate-x-0.5" />
+        </Link>
+      </div>
+
       <div className="h-6" />
     </MobileShell>
   );
