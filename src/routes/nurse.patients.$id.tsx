@@ -119,10 +119,38 @@ function NursePatientDetail() {
         <Link to="/nurse/followup" className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95">
           <ClipboardCheck className="size-5 text-sky-600" /> 随访
         </Link>
-        <Link to="/nurse/patients" className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95">
-          <AlertTriangle className="size-5 text-rose-500" /> 预警
-        </Link>
+        <button
+          onClick={() => setTransferOpen(true)}
+          className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95"
+        >
+          <ArrowRightLeft className="size-5 text-indigo-600" /> 下转社区
+        </button>
       </section>
+
+      {isDischargeReady && (
+        <section className="mx-3 mt-3 flex items-center gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-3">
+          <div className="grid size-9 shrink-0 place-items-center rounded-full bg-sky-500 text-white">
+            <Building2 className="size-4" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-[13px] font-bold text-sky-800">
+              {transferred ? "已下转至社区,持续随访中" : "该患者符合出院条件,可下转社区继续管理"}
+            </p>
+            <p className="mt-0.5 text-[11px] text-sky-700/80">
+              {transferred ? "社区已接收档案与随访计划" : "生成下转单 · 同步近期用药、随访计划与预警"}
+            </p>
+          </div>
+          <button
+            onClick={() => setTransferOpen(true)}
+            className={
+              "shrink-0 rounded-full px-3 py-1.5 text-xs font-bold active:scale-95 " +
+              (transferred ? "bg-white text-sky-700" : "bg-sky-500 text-white")
+            }
+          >
+            {transferred ? "查看" : "下转"}
+          </button>
+        </section>
+      )}
 
       <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
         <p className="text-sm font-bold text-foreground">基本信息</p>
