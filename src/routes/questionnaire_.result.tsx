@@ -323,22 +323,38 @@ function ResultPage() {
     : primary === "warn" ? "text-amber-200/80"
     : "text-sky-200/70";
 
-  // Build tag ring: active problem tags first, then default watch tags to fill
-  const activeTags = problems.filter((p) => p.tone !== "ok").map((p) => ({ label: p.tag, tone: p.tone, active: true }));
-  const usedNames = new Set(activeTags.map((t) => t.label));
-  const filler = DEFAULT_WATCH_TAGS.filter((t) => !usedNames.has(t)).slice(0, Math.max(0, 6 - activeTags.length))
-    .map((t) => ({ label: t, tone: "ok" as Tone, active: false }));
-  const ringTags = [...activeTags, ...filler].slice(0, 6);
+  type RingTag = { label: string; tone: Tone; active: boolean; kind: "disease" | "life" };
 
-  // Ring positions: 6 slots around the circle (top-left, top-right, mid-left, mid-right, bottom-left, bottom-right)
-  const ringPositions = [
-    "left-0 top-4",
-    "right-0 top-4",
-    "left-[-8px] top-1/2 -translate-y-1/2",
-    "right-[-8px] top-1/2 -translate-y-1/2",
-    "left-2 bottom-4",
-    "right-2 bottom-4",
-  ];
+  // Split active problem tags by category
+  const activeAll: RingTag[] = problems
+    .filter((p) => p.tone !== "ok")
+    .map((p) => ({ label: p.tag, tone: p.tone, active: true, kind: categoryOf(p.tag) }));
+  const usedNames = new Set(activeAll.map((t) => t.label));
+
+  const diseaseActive = activeAll.filter((t) => t.kind === "disease");
+  const lifeActive = activeAll.filter((t) => t.kind === "life");
+
+  const diseaseFiller: RingTag[] = DEFAULT_DISEASE_TAGS
+    .filter((t) => !usedNames.has(t))
+    .slice(0, Math.max(0, 3 - diseaseActive.length))
+    .map((t) => ({ label: t, tone: "ok" as Tone, active: false, kind: "disease" }));
+  const lifeFiller: RingTag[] = DEFAULT_LIFE_TAGS
+    .filter((t) => !usedNames.has(t))
+    .slice(0, Math.max(0, 3 - lifeActive.length))
+    .map((t) => ({ label: t, tone: "ok" as Tone, active: false, kind: "life" }));
+
+  const diseaseTags = [...diseaseActive, ...diseaseFiller].slice(0, 3);
+  const lifeTags = [...lifeActive, ...lifeFiller].slice(0, 3);
+
+  const chipClass = (t: RingTag) => {
+    if (!t.active) {
+      return t.kind === "disease"
+        ? "border-rose-100 bg-white/80 text-rose-300"
+        : "border-emerald-100 bg-white/80 text-emerald-400";
+    }
+    return toneChipActive[t.tone];
+  };
+
 
 
 
