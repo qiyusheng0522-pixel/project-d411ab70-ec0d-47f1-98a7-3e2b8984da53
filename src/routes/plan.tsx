@@ -292,30 +292,6 @@ function Plan() {
             {filled ? "已根据量表规避不良习惯所致风险" : "填写量表后可获得个性化方案"}
           </p>
 
-          {/* 生成依据：让用户看到方案来源于其健康风险 */}
-          <div className="mt-3 rounded-2xl bg-white/70 p-3 ring-1 ring-sky-100">
-            <p className="flex items-center gap-1 text-xs font-semibold text-sky-700">
-              <Sparkles className="size-3.5" /> 本方案基于以下健康风险生成
-            </p>
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {["缺血性卒中", "高血压", "2型糖尿病"].map((d) => (
-                <span key={d} className="rounded-full bg-rose-100 px-2.5 py-0.5 text-[11px] font-medium text-rose-700">
-                  {d}
-                </span>
-              ))}
-              {filled && riskTags.length > 0 ? (
-                riskTags.map((r) => (
-                  <span key={r} className="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-medium text-amber-700">
-                    {r}
-                  </span>
-                ))
-              ) : !filled ? (
-                <span className="rounded-full bg-muted px-2.5 py-0.5 text-[11px] text-muted-foreground">
-                  生活方式待评估
-                </span>
-              ) : null}
-            </div>
-          </div>
 
           <div className="mt-4 flex gap-2">
             {([
