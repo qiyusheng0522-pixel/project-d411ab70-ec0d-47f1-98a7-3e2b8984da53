@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ChevronLeft, MessageSquare, ClipboardCheck, HeartPulse, AlertTriangle, Pill,
-  Activity, Phone, MapPin, Users, FlaskConical, Utensils, Moon, Cigarette,
+  Activity, Phone, MapPin, Users, FlaskConical,
   Droplet, BookOpen, Send, X, NotebookPen, Sparkles, Building2, Check, ArrowRightLeft,
 } from "lucide-react";
 import { useState } from "react";
