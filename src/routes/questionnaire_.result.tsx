@@ -66,6 +66,17 @@ function ResultPage() {
   const [guideReady, setGuideReady] = useState(false);
 
   useEffect(() => {
+    const collapsed = typeof window !== "undefined" && localStorage.getItem(GUIDE_KEY) === "1";
+    setGuideOpen(!collapsed);
+    setGuideReady(true);
+  }, []);
+
+  const closeGuide = () => {
+    setGuideOpen(false);
+    try { localStorage.setItem(GUIDE_KEY, "1"); } catch { /* ignore */ }
+  };
+
+  useEffect(() => {
     ensureDefaultQuestionnaires();
     const self = loadSelf();
     const life = loadLife();
