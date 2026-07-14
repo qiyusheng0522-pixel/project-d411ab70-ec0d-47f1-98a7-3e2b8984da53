@@ -116,7 +116,7 @@ function NurseFollowup() {
             {list.map((p) => (
               <li key={p.id}>
                 <Link
-                  to="/nurse/patients/$id"
+                  to={tab === "pending" ? "/nurse/followup_/$id" : "/nurse/patients/$id"}
                   params={{ id: p.id }}
                   className="flex items-start gap-3 py-3 active:bg-muted/40"
                 >
@@ -134,6 +134,11 @@ function NurseFollowup() {
                       <span className="rounded bg-sky-100 px-1.5 py-0.5 text-[10px] font-semibold text-sky-700">
                         {p.days}
                       </span>
+                      {tab === "pending" && (
+                        <span className="flex items-center gap-0.5 rounded-full bg-emerald-500 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                          <Sparkles className="size-2.5" /> AI 随访
+                        </span>
+                      )}
                     </div>
                     <div className="mt-1 flex flex-wrap items-center gap-1">
                       <span className="rounded bg-rose-50 px-1.5 py-0.5 text-[10px] font-semibold text-rose-600">
