@@ -13,7 +13,7 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
-import bodySilhouette from "@/assets/body-silhouette.png";
+import anatomyBody from "@/assets/anatomy-body.png";
 import {
   loadSelf, loadLife,
   scoreEssen, essenLevel, scorePHQ9, phq9Level, scoreMed, medLevel,
@@ -194,51 +194,72 @@ function Plan() {
         </div>
       )}
 
-      {/* 健康摘要：虚拟人形 */}
-      <section className={cn(
-        "mx-4 overflow-hidden rounded-3xl bg-gradient-to-br from-sky-50 to-emerald-50 shadow-[var(--shadow-card)]",
-        filled ? "mt-3 px-4 py-5" : "mt-4 px-3 py-4",
-      )}>
-        <div className="grid grid-cols-3 items-center pb-2 text-base font-bold">
-          <span className="text-center text-rose-500">健康评估</span>
-          <span className="mx-auto h-5 w-px bg-border" />
-          <span className="text-center text-amber-600">不良生活方式</span>
+      {/* 健康摘要：疾病 & 生活风险标签 */}
+      <section className="mx-4 mt-3 overflow-hidden rounded-3xl bg-gradient-to-b from-sky-50 via-sky-50/60 to-white p-4 pb-5 shadow-[var(--shadow-card)]">
+        <p className="text-center text-[13px] font-semibold text-sky-700/80">
+          您当前的疾病与生活风险画像
+        </p>
+
+        {/* 图例 */}
+        <div className="mt-2 flex items-center justify-center gap-5 text-[12px] font-medium">
+          <span className="flex items-center gap-1.5 text-rose-600">
+            <span className="inline-block size-2 rounded-full bg-rose-500" />
+            疾病风险
+          </span>
+          <span className="flex items-center gap-1.5 text-emerald-600">
+            <span className="inline-block size-2 rounded-full bg-emerald-500" />
+            生活风险
+          </span>
         </div>
-        <div className={cn(
-          "grid items-center pt-2",
-          filled ? "grid-cols-[1.15fr_1fr_1.15fr] gap-3" : "grid-cols-3 gap-2",
-        )}>
+
+        {/* 人体图 + 左右分类标签 */}
+        <div className="relative mx-auto mt-3 h-[360px] w-full max-w-[360px]">
+          <img
+            src={anatomyBody}
+            alt="人体解剖示意"
+            width={640}
+            height={1024}
+            loading="lazy"
+            className="absolute left-1/2 top-1/2 h-full w-auto -translate-x-1/2 -translate-y-1/2 object-contain"
+          />
+
           {/* 左：疾病 */}
-          <div className={cn("flex flex-col items-stretch", filled ? "gap-2.5" : "gap-2")}>
-            <Tag tone="rose" size={filled ? "lg" : "md"}>缺血性卒中</Tag>
-            <Tag tone="rose" size={filled ? "lg" : "md"}>高血压</Tag>
-            <Tag tone="rose" size={filled ? "lg" : "md"}>2型糖尿病</Tag>
+          <div className="absolute left-0 top-2 flex flex-col items-start gap-2.5">
+            {["缺血性卒中", "高血压", "2型糖尿病"].map((t) => (
+              <span
+                key={"d-" + t}
+                className="inline-flex items-center rounded-md bg-rose-500 px-2.5 py-1 text-[13px] font-semibold text-white shadow-md"
+              >
+                {t}
+              </span>
+            ))}
           </div>
-          {/* 中：虚拟人（居中放大） */}
-          <div className={cn("relative mx-auto w-full", filled ? "max-w-[8.5rem]" : "max-w-[10rem]")}>
-            <img
-              src={bodySilhouette}
-              alt="虚拟人形 — 健康概览"
-              loading="lazy"
-              width={512}
-              height={768}
-              className="mx-auto h-auto w-full drop-shadow-[0_10px_24px_rgba(244,114,82,0.4)]"
-            />
-          </div>
-          {/* 右：不良生活方式 */}
-          <div className={cn("flex flex-col items-stretch", filled ? "gap-2.5" : "gap-2")}>
+
+          {/* 右：生活方式 */}
+          <div className="absolute right-0 top-2 flex flex-col items-end gap-2.5">
             {filled ? (
               riskTags.length > 0 ? (
-                riskTags.slice(0, 4).map((r) => <Tag key={r} tone="amber" size="lg">{r}</Tag>)
+                riskTags.slice(0, 4).map((r) => (
+                  <span
+                    key={"l-" + r}
+                    className="inline-flex items-center rounded-md bg-emerald-500 px-2.5 py-1 text-[13px] font-semibold text-white shadow-md"
+                  >
+                    {r}
+                  </span>
+                ))
               ) : (
-                <Tag tone="emerald" size="lg">习惯良好</Tag>
+                <span className="inline-flex items-center rounded-md bg-emerald-500 px-2.5 py-1 text-[13px] font-semibold text-white shadow-md">
+                  习惯良好
+                </span>
               )
             ) : (
               <>
-                <Tag tone="muted">待评估</Tag>
+                <span className="inline-flex items-center rounded-md bg-emerald-300 px-2.5 py-1 text-[13px] font-semibold text-white shadow-md">
+                  待评估
+                </span>
                 <button
                   onClick={() => setScaleOpen(true)}
-                  className="block w-full whitespace-nowrap rounded-full bg-amber-500 px-2 py-1.5 text-sm font-bold text-white shadow active:scale-95"
+                  className="inline-flex items-center rounded-md bg-amber-500 px-2.5 py-1 text-[13px] font-semibold text-white shadow-md active:scale-95"
                 >
                   去填写量表
                 </button>
@@ -246,8 +267,9 @@ function Plan() {
             )}
           </div>
         </div>
+
         {filled && (
-          <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-emerald-700">
+          <p className="mt-2 flex items-center justify-center gap-1.5 text-xs text-emerald-700">
             <Sparkles className="size-3.5" /> 已根据量表识别您的健康画像
           </p>
         )}
