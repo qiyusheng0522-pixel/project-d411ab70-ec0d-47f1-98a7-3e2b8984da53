@@ -4,7 +4,7 @@ import { useState } from "react";
 import { PortalShell } from "@/components/PortalShell";
 import { nurseTabs } from "./nurse.index";
 
-export const Route = createFileRoute("/nurse/patients")({ component: NursePatients });
+export const Route = createFileRoute("/nurse/patients/")({ component: NursePatients });
 
 type Stage = "待入院" | "院中" | "待出院" | "院外";
 
