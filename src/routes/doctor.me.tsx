@@ -3,7 +3,7 @@ import { PortalShell } from "@/components/PortalShell";
 import { doctorTabs } from "./doctor.index";
 import {
   User, Wallet, BarChart3, Settings, ChevronRight, LogOut, Bell,
-  TrendingDown, HeartPulse, Activity, Award, FileCheck2, MessageSquare, Clock, CircleDollarSign,
+  TrendingDown, HeartPulse, Activity, Award, FileCheck2, MessageSquare, CircleDollarSign,
 } from "lucide-react";
 
 export const Route = createFileRoute("/doctor/me")({ component: DoctorMe });
