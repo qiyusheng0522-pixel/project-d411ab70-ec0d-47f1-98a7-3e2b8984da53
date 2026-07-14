@@ -41,11 +41,12 @@ function PatientDetail() {
         </div>
       </section>
 
-      <section className="mx-3 mt-3 grid grid-cols-3 gap-2">
+      <section className="mx-3 mt-3 grid grid-cols-4 gap-2">
         {[
           { icon: MessageSquare, label: "沟通", to: "/doctor/chat" },
           { icon: Phone, label: "电话", to: "/doctor/patients" },
           { icon: ClipboardCheck, label: "方案审核", to: "/doctor/plans" },
+          { icon: Users, label: "会诊", to: "/doctor/patients/$id/consult" },
         ].map((a) => {
           const Icon = a.icon;
           return (
@@ -53,6 +54,8 @@ function PatientDetail() {
               key={a.label}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               to={a.to as any}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              params={(a.to.includes("$id") ? { id: p.id } : undefined) as any}
               className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95"
             >
               <Icon className="size-5 text-sky-600" />
