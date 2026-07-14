@@ -5,7 +5,7 @@ import {
   Droplet, BookOpen, Send, X, NotebookPen, Sparkles, Building2, Check, ArrowRightLeft,
 } from "lucide-react";
 import { useState } from "react";
-import { nurseList } from "./nurse.patients";
+import { nurseList } from "./nurse.patients.index";
 
 export const Route = createFileRoute("/nurse/patients/$id")({ component: NursePatientDetail });
 

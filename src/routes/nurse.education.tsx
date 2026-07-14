@@ -3,7 +3,7 @@ import { Send, X, Check, ChevronRight, Eye, Activity, HeartPulse, Bell } from "l
 import { useState } from "react";
 import { PortalShell } from "@/components/PortalShell";
 import { nurseTabs } from "./nurse.index";
-import { nurseList } from "./nurse.patients";
+import { nurseList } from "./nurse.patients.index";
 
 export const Route = createFileRoute("/nurse/education")({ component: NurseEducation });
 
