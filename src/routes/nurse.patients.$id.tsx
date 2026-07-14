@@ -44,8 +44,8 @@ function NursePatientDetail() {
           </div>
           <div className="min-w-0 flex-1">
             <p className="text-lg font-bold">{p.name}</p>
-            <p className="text-xs opacity-90">{p.room} · {p.bed}</p>
-            <p className="mt-1 text-xs opacity-90">{p.tag}</p>
+            <p className="text-xs opacity-90">{p.age} 岁 · {p.stage}</p>
+            <p className="mt-1 text-xs opacity-90">{p.conds.join(" / ")}</p>
           </div>
         </div>
       </section>
