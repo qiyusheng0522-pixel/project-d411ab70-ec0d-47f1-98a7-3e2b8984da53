@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ArrowRight, ClipboardList } from "lucide-react";
 import { MobileShell } from "@/components/MobileShell";
 import anatomyBody from "@/assets/anatomy-body.png";
 import {
