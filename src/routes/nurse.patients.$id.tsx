@@ -304,22 +304,6 @@ function NursePatientDetail() {
         </ul>
       </section>
 
-      {/* Sticky quick-send bar */}
-      <div className="sticky bottom-0 z-20 mx-3 mt-4 flex gap-3">
-        <button
-          onClick={() => setChatOpen(true)}
-          className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-card py-3 text-sm font-bold text-emerald-600 shadow-[var(--shadow-card)] active:scale-[0.99]"
-        >
-          <MessageSquare className="size-4" /> 快捷沟通
-        </button>
-        <Link
-          to="/nurse/chat/$id"
-          params={{ id: p.id }}
-          className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-emerald-500 py-3 text-sm font-bold text-white shadow-[var(--shadow-soft)] active:scale-[0.99]"
-        >
-          <Send className="size-4" /> 进入会话
-        </Link>
-      </div>
 
       {/* Quick-send bottom sheet */}
       {chatOpen && (
