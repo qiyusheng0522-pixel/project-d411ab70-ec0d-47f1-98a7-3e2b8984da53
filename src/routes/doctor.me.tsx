@@ -3,7 +3,7 @@ import { PortalShell } from "@/components/PortalShell";
 import { doctorTabs } from "./doctor.index";
 import {
   User, Wallet, BarChart3, Settings, ChevronRight, LogOut, Bell,
-  TrendingDown, HeartPulse, Activity, Award, FileCheck2, MessageSquare, Clock, CircleDollarSign,
+  TrendingDown, HeartPulse, Activity, Award, FileCheck2, MessageSquare, CircleDollarSign,
 } from "lucide-react";
 
 export const Route = createFileRoute("/doctor/me")({ component: DoctorMe });
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/doctor/me")({ component: DoctorMe });
 const workload = [
   { icon: FileCheck2, color: "text-amber-600", bg: "bg-amber-100", value: "63", label: "审核数量" },
   { icon: MessageSquare, color: "text-sky-600", bg: "bg-sky-100", value: "42", label: "沟通患者" },
-  { icon: Clock, color: "text-violet-600", bg: "bg-violet-100", value: "72h", label: "在线时长" },
+  
   { icon: CircleDollarSign, color: "text-emerald-600", bg: "bg-emerald-100", value: "¥0", label: "收益金额" },
 ];
 
