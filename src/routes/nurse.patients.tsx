@@ -177,20 +177,6 @@ function NursePatients() {
                       </span>
                     ))}
                   </div>
-                  <p className="mt-1 rounded bg-rose-50/60 px-1.5 py-1 text-[11px] text-rose-700/80">
-                    {p.reason}
-                  </p>
-                  <div className="mt-1.5 flex items-center gap-2 text-[11px] text-muted-foreground">
-                    <span className="shrink-0 whitespace-nowrap rounded-full bg-sky-50 px-1.5 py-0.5 font-semibold text-sky-600">
-                      {p.days}
-                    </span>
-                    <span className="flex shrink-0 items-center gap-0.5 whitespace-nowrap rounded-full bg-muted px-1.5 py-0.5">
-                      <MessageSquare className="size-3" /> 沟通
-                    </span>
-                    <span className="ml-auto flex shrink-0 items-center gap-0.5 whitespace-nowrap">
-                      <Clock className="size-3" /> 创建于 {p.createdAt}
-                    </span>
-                  </div>
                 </div>
                 <ChevronRight className="size-4 shrink-0 self-center text-muted-foreground" />
               </Link>
