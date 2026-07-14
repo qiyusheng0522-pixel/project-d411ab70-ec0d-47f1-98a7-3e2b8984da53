@@ -228,6 +228,77 @@ function ResultPage() {
       });
     }
 
+    // Attach advice + goals per tag
+    const adviceMap: Record<string, { advice: string[]; goals: string[] }> = {
+      "急性卒中征象": {
+        advice: ["立即拨打 120,不要自行驾车前往医院", "记录症状出现时间,便于溶栓/取栓评估", "保持平卧,勿进食进水以防误吸"],
+        goals: ["4.5 小时内到达具备卒中救治能力的医院", "24 小时内完成头颅影像与病因初步评估"],
+      },
+      "卒中复发风险": {
+        advice: ["每日规律服用抗血小板与他汀类药物,勿自行停药", "每 3 个月神经内科随访一次,复查血脂与颈动脉超声", "严格控制血压、血糖并记录晨起数值"],
+        goals: ["血压 <140/90 mmHg,糖化血红蛋白 <7%", "LDL-C 降至 <1.8 mmol/L", "一年内 Essen 复评分数下降 ≥1 分"],
+      },
+      "功能残障": {
+        advice: ["每周 3~5 次在康复科指导下进行结构化训练", "家中加装扶手与防滑垫,减少跌倒风险", "家属协助记录 ADL 完成情况并鼓励自主完成"],
+        goals: ["3 个月内 mRS 评分下降 1 级", "独立完成穿衣、如厕等基础日常活动"],
+      },
+      "情绪障碍": {
+        advice: ["2 周内前往心理科或神经内科进行专业评估", "保持每日 30 分钟户外活动与规律作息", "主动与家人朋友倾诉,必要时寻求心理咨询"],
+        goals: ["3 个月内 PHQ-9 评分回落至 <10 分", "重建规律睡眠与社交节律"],
+      },
+      "用药不规律": {
+        advice: ["使用分药盒并设置手机用药提醒", "邀请家属每日核对用药并做记录", "如有副作用及时复诊,勿自行减停"],
+        goals: ["月度用药依从率 ≥95%", "下次随访 MMAS-8 评分达到高依从"],
+      },
+      "偏瘦": {
+        advice: ["排查慢性消耗性疾病及消化吸收问题", "每日增加优质蛋白 1.0~1.2 g/kg", "少食多餐,适度增加坚果与全谷物"],
+        goals: ["3 个月内 BMI 恢复至 18.5~23.9", "肌肉量与握力同步提升"],
+      },
+      "超重": {
+        advice: ["每日能量摄入减少 300~500 kcal", "配合每周 150 分钟中等强度有氧运动", "限盐、限油、减少含糖饮料"],
+        goals: ["6 个月内 BMI 回落至 <24", "腰围男 <90 cm、女 <85 cm"],
+      },
+      "肥胖": {
+        advice: ["在营养师指导下制定个体化减重方案", "每周至少 5 次、每次 30 分钟以上有氧运动", "必要时寻求专业代谢减重门诊帮助"],
+        goals: ["6 个月内体重下降 5%~10%", "空腹血糖、血脂逐步回归正常范围"],
+      },
+      "饮食结构失衡": {
+        advice: ["每日食盐 <5 g,烹调用油 25~30 g", "每天蔬菜 ≥500 g、水果 200~350 g", "红肉每周 ≤500 g,多用鱼禽豆类替代"],
+        goals: ["1 个月内建立稳定的低盐低脂饮食习惯", "血压与 LDL-C 指标改善"],
+      },
+      "运动不足": {
+        advice: ["每周至少 5 天、每次 30 分钟中等强度运动", "从快走开始,循序渐进增加强度与时长", "结合居家拉伸与力量训练避免损伤"],
+        goals: ["累计达到 150 分钟/周的中等强度运动", "静息心率下降 5~10 次/分"],
+      },
+      "吸烟": {
+        advice: ["尽快预约戒烟门诊,可结合尼古丁替代", "清理家中烟具,避免二手烟环境", "识别吸烟触发点并制定替代应对方式"],
+        goals: ["1 个月内每日吸烟量减半", "6 个月内完全戒断"],
+      },
+      "饮酒过量": {
+        advice: ["设定每周无酒日并逐步减量", "避免空腹饮酒与烈性酒", "必要时寻求戒酒门诊药物辅助"],
+        goals: ["男性每日纯酒精 <25 g、女性 <15 g", "3 个月内完全戒酒或稳定低量"],
+      },
+      "睡眠不佳": {
+        advice: ["固定 22:30 前入睡,每日睡眠 7~8 小时", "睡前 1 小时远离手机与刺激性饮食", "打鼾严重者进行睡眠呼吸监测"],
+        goals: ["匹兹堡睡眠质量指数 (PSQI) <7 分", "夜间觉醒次数 ≤1 次"],
+      },
+      "压力偏高": {
+        advice: ["每日 10 分钟正念冥想或深呼吸练习", "主动与家人朋友沟通,建立支持网络", "必要时寻求专业心理咨询"],
+        goals: ["感知压力量表 (PSS) 评分明显下降", "情绪与睡眠同步改善"],
+      },
+      "整体良好": {
+        advice: ["保持当前饮食、运动与用药习惯", "每 6~12 个月完成一次卒中风险复评", "留意 BE-FAST 症状,出现异常立即就医"],
+        goals: ["核心指标(血压、血脂、血糖、BMI)持续达标", "维持规律作息与积极心态"],
+      },
+    };
+    for (const p of built) {
+      const extra = adviceMap[p.tag];
+      if (extra) {
+        p.advice = extra.advice;
+        p.goals = extra.goals;
+      }
+    }
+
     setProblems(built);
     setReady(true);
   }, []);
@@ -246,6 +317,27 @@ function ResultPage() {
     : primary === "warn" ? "text-amber-200/80"
     : "text-sky-200/70";
 
+  // Build tag ring: active problem tags first, then default watch tags to fill
+  const activeTags = problems.filter((p) => p.tone !== "ok").map((p) => ({ label: p.tag, tone: p.tone, active: true }));
+  const usedNames = new Set(activeTags.map((t) => t.label));
+  const filler = DEFAULT_WATCH_TAGS.filter((t) => !usedNames.has(t)).slice(0, Math.max(0, 6 - activeTags.length))
+    .map((t) => ({ label: t, tone: "ok" as Tone, active: false }));
+  const ringTags = [...activeTags, ...filler].slice(0, 6);
+
+  // Ring positions: 6 slots around the circle (top-left, top-right, mid-left, mid-right, bottom-left, bottom-right)
+  const ringPositions = [
+    "left-0 top-4",
+    "right-0 top-4",
+    "left-[-8px] top-1/2 -translate-y-1/2",
+    "right-[-8px] top-1/2 -translate-y-1/2",
+    "left-2 bottom-4",
+    "right-2 bottom-4",
+  ];
+
+  // Aggregate advice & goals across problems (dedupe)
+  const allAdvice = Array.from(new Set(problems.flatMap((p) => p.advice ?? [])));
+  const allGoals = Array.from(new Set(problems.flatMap((p) => p.goals ?? [])));
+
   return (
     <MobileShell>
       {/* 标题栏 */}
@@ -259,38 +351,103 @@ function ResultPage() {
         <h1 className="text-[17px] font-bold text-foreground">档案评估详情</h1>
       </header>
 
-      {/* 人体插画 */}
-      <div className="relative mx-4 mt-4 flex justify-center rounded-2xl bg-gradient-to-b from-sky-50 to-white py-6">
-        {problems[0] && (
-          <span
-            className={`absolute left-4 top-4 inline-flex items-center rounded-md px-3 py-1 text-[13px] font-bold text-white ${toneTagBg[problems[0].tone]}`}
-          >
-            {problems[0].tag}
-          </span>
+      {/* 风险标签环形展示 */}
+      <div className="mx-4 mt-4 rounded-3xl bg-gradient-to-b from-sky-50 via-sky-50/60 to-white p-4 pb-6">
+        <p className="text-center text-[13px] font-medium text-sky-700/80">
+          您当前建议关注的卒中及生活风险
+        </p>
+        <div className="relative mx-auto mt-3 h-[260px] w-full max-w-[360px]">
+          {/* 中心圆盘 + 人体 */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="relative grid size-[160px] place-items-center rounded-full bg-gradient-to-br from-sky-100 via-white to-violet-100 shadow-[0_10px_30px_-12px_rgba(56,189,248,0.55)] ring-4 ring-white">
+              <BodySilhouette className={`h-32 w-auto ${bodyTint}`} />
+              <span className="absolute right-4 top-6 text-sky-300">✦</span>
+              <span className="absolute left-5 bottom-8 text-violet-300">✦</span>
+            </div>
+          </div>
+          {/* 环形标签 */}
+          {ringTags.map((t, i) => (
+            <span
+              key={t.label + i}
+              className={`absolute inline-flex max-w-[7.5rem] items-center justify-center rounded-full border px-3 py-1.5 text-[13px] font-semibold shadow-sm ${
+                t.active
+                  ? toneChipActive[t.tone]
+                  : "border-slate-200 bg-white/80 text-slate-400"
+              } ${ringPositions[i]}`}
+            >
+              {t.label}
+            </span>
+          ))}
+        </div>
+        {activeTags.length > 0 && (
+          <div className="mt-2 flex flex-wrap justify-center gap-1.5">
+            {activeTags.map((t) => (
+              <span
+                key={"legend-" + t.label}
+                className={`inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-semibold text-white ${toneTagBg[t.tone]}`}
+              >
+                {t.label}
+              </span>
+            ))}
+          </div>
         )}
-        <BodySilhouette className={`h-64 w-auto ${bodyTint}`} />
       </div>
 
-      {/* 详情叙述 */}
-      <section className="mx-4 mt-4 space-y-6 border-t border-border/60 pt-5 pb-6">
-        {problems.map((p, idx) => (
-          <div key={p.tag + idx} className="space-y-3">
-            {idx > 0 && (
+      {/* 风险详情解读 */}
+      <section className="mx-4 mt-5">
+        <h2 className="mb-3 text-[15px] font-bold text-foreground">风险详细解读</h2>
+        <div className="space-y-5 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
+          {problems.map((p, idx) => (
+            <div key={p.tag + idx} className="space-y-2">
               <span
-                className={`inline-flex items-center rounded-md px-3 py-1 text-[13px] font-bold text-white ${toneTagBg[p.tone]}`}
+                className={`inline-flex items-center rounded-md px-2.5 py-0.5 text-[12px] font-bold text-white ${toneTagBg[p.tone]}`}
               >
                 {p.tag}
               </span>
-            )}
-            {p.paragraphs.map((t, i) => (
-              <p key={i} className="text-[15px] leading-[1.9] text-foreground/85">
-                {t}
-              </p>
-            ))}
-            {idx < problems.length - 1 && <div className="pt-3 border-b border-dashed border-border/60" />}
-          </div>
-        ))}
+              {p.paragraphs.map((t, i) => (
+                <p key={i} className="text-[14px] leading-[1.85] text-foreground/85">
+                  {t}
+                </p>
+              ))}
+              {idx < problems.length - 1 && <div className="pt-1 border-b border-dashed border-border/60" />}
+            </div>
+          ))}
+        </div>
       </section>
+
+      {/* 个人建议事项 */}
+      {allAdvice.length > 0 && (
+        <section className="mx-4 mt-5">
+          <h2 className="mb-3 text-[15px] font-bold text-foreground">
+            给您的个人建议
+          </h2>
+          <ol className="space-y-2.5 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
+            {allAdvice.map((tip, i) => (
+              <li key={tip} className="flex gap-3">
+                <span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary/10 text-[12px] font-bold text-primary">
+                  {i + 1}
+                </span>
+                <p className="flex-1 text-[14px] leading-[1.8] text-foreground/85">{tip}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      {/* 健康目标 */}
+      {allGoals.length > 0 && (
+        <section className="mx-4 mt-5 mb-6">
+          <h2 className="mb-3 text-[15px] font-bold text-foreground">健康目标</h2>
+          <ul className="space-y-2 rounded-2xl bg-gradient-to-br from-emerald-50 to-sky-50 p-4 shadow-[var(--shadow-card)]">
+            {allGoals.map((g) => (
+              <li key={g} className="flex items-start gap-2">
+                <span className="mt-1.5 inline-block size-1.5 shrink-0 rounded-full bg-emerald-500" />
+                <p className="flex-1 text-[14px] leading-[1.8] text-foreground/85">{g}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <div className="h-6" />
     </MobileShell>
