@@ -334,9 +334,8 @@ function ResultPage() {
     "right-2 bottom-4",
   ];
 
-  // Aggregate advice & goals across problems (dedupe)
-  const allAdvice = Array.from(new Set(problems.flatMap((p) => p.advice ?? [])));
-  const allGoals = Array.from(new Set(problems.flatMap((p) => p.goals ?? [])));
+
+
 
   return (
     <MobileShell>
