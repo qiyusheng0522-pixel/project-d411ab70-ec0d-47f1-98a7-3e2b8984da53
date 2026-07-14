@@ -580,6 +580,7 @@ function ExercisePlan({ riskCount }: { riskCount: number }) {
   const [openId, setOpenId] = useState<string | null>(null);
   const [items, setItems] = useState(exercises);
   const [authed, setAuthed] = useState(false);
+  const [riskOpen, setRiskOpen] = useState(false);
 
   return (
     <section className="mx-4 mt-6">
@@ -615,15 +616,22 @@ function ExercisePlan({ riskCount }: { riskCount: number }) {
         </button>
       </div>
 
-      {/* 风险提示 */}
+      {/* 风险提示（默认收起） */}
       <div className="mb-3 overflow-hidden rounded-2xl border border-rose-200 bg-rose-50">
-        <div className="flex items-start gap-2.5 p-3.5">
+        <button
+          type="button"
+          onClick={() => setRiskOpen((v) => !v)}
+          className="flex w-full items-center gap-2.5 p-3.5 text-left"
+        >
           <div className="grid size-8 shrink-0 place-items-center rounded-xl bg-rose-500 text-white">
             <AlertTriangle className="size-4" />
           </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-bold text-rose-800">运动风险提示 · 请务必阅读</p>
-            <ul className="mt-1.5 space-y-1 text-[12px] leading-relaxed text-rose-800/90">
+          <p className="flex-1 text-sm font-bold text-rose-800">运动风险提示 · 请务必阅读</p>
+          <ChevronRight className={cn("size-4 text-rose-500 transition-transform", riskOpen && "rotate-90")} />
+        </button>
+        {riskOpen && (
+          <div className="px-3.5 pb-3.5 pl-[3.75rem]">
+            <ul className="space-y-1 text-[12px] leading-relaxed text-rose-800/90">
               <li>· 运动前测量血压,静息 &gt; 160/100 mmHg 或未控糖时暂缓;</li>
               <li>· 出现胸痛、头晕、心悸、单侧无力、言语不清立即停止并就医(BE-FAST);</li>
               <li>· 建议家属或康复师在旁陪同,佩戴防跌倒鞋具;</li>
@@ -635,7 +643,7 @@ function ExercisePlan({ riskCount }: { riskCount: number }) {
               </p>
             )}
           </div>
-        </div>
+        )}
       </div>
 
       <ul className="space-y-4">
