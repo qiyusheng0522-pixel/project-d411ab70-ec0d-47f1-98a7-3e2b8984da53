@@ -57,9 +57,13 @@ function BodySilhouette({ className = "" }: { className?: string }) {
   );
 }
 
+const GUIDE_KEY = "questionnaire_result_guide_collapsed";
+
 function ResultPage() {
   const [ready, setReady] = useState(false);
   const [problems, setProblems] = useState<Problem[]>([]);
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [guideReady, setGuideReady] = useState(false);
 
   useEffect(() => {
     ensureDefaultQuestionnaires();
