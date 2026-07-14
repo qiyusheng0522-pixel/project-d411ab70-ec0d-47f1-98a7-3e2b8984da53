@@ -445,7 +445,7 @@ function ResultPage() {
           </div>
 
           {/* 中：虚拟人 */}
-          <div className={`relative grid size-[170px] place-items-center rounded-full bg-gradient-to-br from-sky-100 via-white to-violet-100 shadow-[0_10px_30px_-12px_rgba(56,189,248,0.55)] ring-4 ring-white ${bodyTint === "" ? "" : ""}`}>
+          <div className="relative grid size-[170px] place-items-center rounded-full bg-gradient-to-br from-sky-100 via-white to-violet-100 shadow-[0_10px_30px_-12px_rgba(56,189,248,0.55)] ring-4 ring-white">
             <img
               src={virtualHuman}
               alt="虚拟人形象"
