@@ -38,6 +38,47 @@ function ChatDetail() {
   const [aiDraft, setAiDraft] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const [listening, setListening] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognitionRef = useRef<any>(null);
+
+  const toggleVoice = () => {
+    if (listening) {
+      recognitionRef.current?.stop();
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const SR: any = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SR) {
+      alert("当前浏览器不支持语音输入,请使用 Chrome/Edge/Safari。");
+      return;
+    }
+    try {
+      const rec = new SR();
+      rec.lang = "zh-CN";
+      rec.continuous = false;
+      rec.interimResults = true;
+      let finalText = "";
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      rec.onresult = (e: any) => {
+        let interim = "";
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          const t = e.results[i][0].transcript;
+          if (e.results[i].isFinal) finalText += t;
+          else interim += t;
+        }
+        setInput((finalText + interim).trim());
+      };
+      rec.onend = () => { setListening(false); recognitionRef.current = null; };
+      rec.onerror = () => { setListening(false); recognitionRef.current = null; };
+      recognitionRef.current = rec;
+      rec.start();
+      setListening(true);
+    } catch {
+      setListening(false);
+      alert("语音识别启动失败,请检查麦克风权限。");
+    }
+  };
 
   const lastPatientMsg = [...msgs].reverse().find((m) => m.role === "them")?.text ?? "";
 
