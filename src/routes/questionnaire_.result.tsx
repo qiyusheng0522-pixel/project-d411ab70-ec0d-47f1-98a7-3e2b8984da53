@@ -46,26 +46,10 @@ function categoryOf(tag: string): "disease" | "life" {
   return DISEASE_TAGS.has(tag) ? "disease" : "life";
 }
 
-
-
-const GUIDE_KEY = "questionnaire_result_guide_collapsed";
-
 function ResultPage() {
   const [ready, setReady] = useState(false);
   const [problems, setProblems] = useState<Problem[]>([]);
-  const [guideOpen, setGuideOpen] = useState(false);
-  const [guideReady, setGuideReady] = useState(false);
 
-  useEffect(() => {
-    const collapsed = typeof window !== "undefined" && localStorage.getItem(GUIDE_KEY) === "1";
-    setGuideOpen(!collapsed);
-    setGuideReady(true);
-  }, []);
-
-  const closeGuide = () => {
-    setGuideOpen(false);
-    try { localStorage.setItem(GUIDE_KEY, "1"); } catch { /* ignore */ }
-  };
 
   useEffect(() => {
     ensureDefaultQuestionnaires();
