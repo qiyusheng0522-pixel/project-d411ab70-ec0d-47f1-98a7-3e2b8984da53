@@ -55,6 +55,29 @@ function DoctorMe() {
         <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-emerald-600">在岗</span>
       </section>
 
+      <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
+        <div className="mb-3 flex items-center justify-between">
+          <p className="text-sm font-bold text-foreground">本月工作量概览</p>
+          <span className="text-[11px] text-muted-foreground">7 月 1 日 - 今日</span>
+        </div>
+        <div className="grid grid-cols-4 gap-2">
+          {workload.map((w) => {
+            const Icon = w.icon;
+            return (
+              <div key={w.label} className="rounded-xl bg-muted/40 py-3 text-center">
+                <div className={`mx-auto grid size-8 place-items-center rounded-lg ${w.bg}`}>
+                  <Icon className={`size-4 ${w.color}`} />
+                </div>
+                <p className={`mt-1.5 text-base font-bold ${w.color}`}>{w.value}</p>
+                <p className="text-[10px] text-muted-foreground">{w.label}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+
+
       {groups.map((g) => (
         <section key={g.title} className="mx-3 mt-3 rounded-2xl bg-card shadow-[var(--shadow-card)]">
           <p className="px-4 pt-3 text-[12px] font-semibold text-muted-foreground">{g.title}</p>
