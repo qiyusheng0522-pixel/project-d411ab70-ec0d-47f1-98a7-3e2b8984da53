@@ -325,14 +325,6 @@ function ResultPage() {
   const diseaseTags = [...diseaseActive, ...diseaseFiller].slice(0, 3);
   const lifeTags = [...lifeActive, ...lifeFiller].slice(0, 3);
 
-  const chipClass = (t: RingTag) => {
-    if (!t.active) {
-      return t.kind === "disease"
-        ? "border-rose-100 bg-white/80 text-rose-300"
-        : "border-emerald-100 bg-white/80 text-emerald-400";
-    }
-    return toneChipActive[t.tone];
-  };
 
 
 
