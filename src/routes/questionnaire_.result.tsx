@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { MobileShell } from "@/components/MobileShell";
 import virtualHuman from "@/assets/virtual-human.png";
 import {
@@ -46,26 +46,10 @@ function categoryOf(tag: string): "disease" | "life" {
   return DISEASE_TAGS.has(tag) ? "disease" : "life";
 }
 
-
-
-const GUIDE_KEY = "questionnaire_result_guide_collapsed";
-
 function ResultPage() {
   const [ready, setReady] = useState(false);
   const [problems, setProblems] = useState<Problem[]>([]);
-  const [guideOpen, setGuideOpen] = useState(false);
-  const [guideReady, setGuideReady] = useState(false);
 
-  useEffect(() => {
-    const collapsed = typeof window !== "undefined" && localStorage.getItem(GUIDE_KEY) === "1";
-    setGuideOpen(!collapsed);
-    setGuideReady(true);
-  }, []);
-
-  const closeGuide = () => {
-    setGuideOpen(false);
-    try { localStorage.setItem(GUIDE_KEY, "1"); } catch { /* ignore */ }
-  };
 
   useEffect(() => {
     ensureDefaultQuestionnaires();
@@ -367,43 +351,6 @@ function ResultPage() {
         <h1 className="text-[17px] font-bold text-foreground">档案评估详情</h1>
       </header>
 
-      {/* 操作步骤引导 */}
-      {guideReady && (
-        <div className="mx-4 mt-3 overflow-hidden rounded-2xl border border-sky-200/70 bg-gradient-to-br from-sky-50 to-violet-50 shadow-[var(--shadow-card)]">
-          <button
-            type="button"
-            onClick={() => (guideOpen ? closeGuide() : setGuideOpen(true))}
-            className="flex w-full items-center justify-between px-4 py-3 text-left"
-          >
-            <span className="flex items-center gap-2 text-[14px] font-bold text-sky-700">
-              <Sparkles className="size-4" />
-              操作步骤引导
-            </span>
-            {guideOpen ? (
-              <ChevronUp className="size-4 text-sky-600" />
-            ) : (
-              <ChevronDown className="size-4 text-sky-600" />
-            )}
-          </button>
-          {guideOpen && (
-            <div className="space-y-2 px-4 pb-4 text-[13px] leading-[1.8] text-foreground/80">
-              <p>1. 查看顶部人体图周围的风险标签，快速定位需要关注的健康问题。</p>
-              <p>2. 阅读下方风险评估内容，了解现状说明与日常养护建议。</p>
-              <p>3. 按"每日日常养护"和"定期专项复查"事项逐条落实。</p>
-              <p>4. 需要个性化方案时，可联系专属健康管理师咨询。</p>
-              <div className="pt-1 text-right">
-                <button
-                  type="button"
-                  onClick={closeGuide}
-                  className="rounded-full bg-white/70 px-3 py-1 text-[12px] font-semibold text-sky-700 shadow-sm"
-                >
-                  我知道了，收起引导
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
 
 
       {/* 风险标签展示 */}
