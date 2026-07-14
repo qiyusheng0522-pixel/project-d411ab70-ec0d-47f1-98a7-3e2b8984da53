@@ -39,9 +39,9 @@ import { Route as NurseChatRouteImport } from './routes/nurse.chat'
 import { Route as EducationIdRouteImport } from './routes/education.$id'
 import { Route as DoctorStatsRouteImport } from './routes/doctor.stats'
 import { Route as DoctorMeRouteImport } from './routes/doctor.me'
-import { Route as DoctorChatRouteImport } from './routes/doctor.chat'
 import { Route as DoctorPlansIndexRouteImport } from './routes/doctor.plans.index'
 import { Route as DoctorPatientsIndexRouteImport } from './routes/doctor.patients.index'
+import { Route as DoctorChatIndexRouteImport } from './routes/doctor.chat.index'
 import { Route as NursePatientsIdRouteImport } from './routes/nurse.patients.$id'
 import { Route as DoctorPlansIdRouteImport } from './routes/doctor.plans.$id'
 import { Route as DoctorPatientsIdRouteImport } from './routes/doctor.patients.$id'
@@ -197,11 +197,6 @@ const DoctorMeRoute = DoctorMeRouteImport.update({
   path: '/me',
   getParentRoute: () => DoctorRoute,
 } as any)
-const DoctorChatRoute = DoctorChatRouteImport.update({
-  id: '/chat',
-  path: '/chat',
-  getParentRoute: () => DoctorRoute,
-} as any)
 const DoctorPlansIndexRoute = DoctorPlansIndexRouteImport.update({
   id: '/plans/',
   path: '/plans/',
@@ -210,6 +205,11 @@ const DoctorPlansIndexRoute = DoctorPlansIndexRouteImport.update({
 const DoctorPatientsIndexRoute = DoctorPatientsIndexRouteImport.update({
   id: '/patients/',
   path: '/patients/',
+  getParentRoute: () => DoctorRoute,
+} as any)
+const DoctorChatIndexRoute = DoctorChatIndexRouteImport.update({
+  id: '/chat/',
+  path: '/chat/',
   getParentRoute: () => DoctorRoute,
 } as any)
 const NursePatientsIdRoute = NursePatientsIdRouteImport.update({
@@ -228,9 +228,9 @@ const DoctorPatientsIdRoute = DoctorPatientsIdRouteImport.update({
   getParentRoute: () => DoctorRoute,
 } as any)
 const DoctorChatIdRoute = DoctorChatIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => DoctorChatRoute,
+  id: '/chat/$id',
+  path: '/chat/$id',
+  getParentRoute: () => DoctorRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -250,7 +250,6 @@ export interface FileRoutesByFullPath {
   '/reports': typeof ReportsRoute
   '/scales': typeof ScalesRoute
   '/tasks': typeof TasksRoute
-  '/doctor/chat': typeof DoctorChatRouteWithChildren
   '/doctor/me': typeof DoctorMeRoute
   '/doctor/stats': typeof DoctorStatsRoute
   '/education/$id': typeof EducationIdRoute
@@ -269,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/doctor/patients/$id': typeof DoctorPatientsIdRoute
   '/doctor/plans/$id': typeof DoctorPlansIdRoute
   '/nurse/patients/$id': typeof NursePatientsIdRoute
+  '/doctor/chat/': typeof DoctorChatIndexRoute
   '/doctor/patients/': typeof DoctorPatientsIndexRoute
   '/doctor/plans/': typeof DoctorPlansIndexRoute
 }
@@ -287,7 +287,6 @@ export interface FileRoutesByTo {
   '/reports': typeof ReportsRoute
   '/scales': typeof ScalesRoute
   '/tasks': typeof TasksRoute
-  '/doctor/chat': typeof DoctorChatRouteWithChildren
   '/doctor/me': typeof DoctorMeRoute
   '/doctor/stats': typeof DoctorStatsRoute
   '/education/$id': typeof EducationIdRoute
@@ -306,6 +305,7 @@ export interface FileRoutesByTo {
   '/doctor/patients/$id': typeof DoctorPatientsIdRoute
   '/doctor/plans/$id': typeof DoctorPlansIdRoute
   '/nurse/patients/$id': typeof NursePatientsIdRoute
+  '/doctor/chat': typeof DoctorChatIndexRoute
   '/doctor/patients': typeof DoctorPatientsIndexRoute
   '/doctor/plans': typeof DoctorPlansIndexRoute
 }
@@ -327,7 +327,6 @@ export interface FileRoutesById {
   '/reports': typeof ReportsRoute
   '/scales': typeof ScalesRoute
   '/tasks': typeof TasksRoute
-  '/doctor/chat': typeof DoctorChatRouteWithChildren
   '/doctor/me': typeof DoctorMeRoute
   '/doctor/stats': typeof DoctorStatsRoute
   '/education/$id': typeof EducationIdRoute
@@ -346,6 +345,7 @@ export interface FileRoutesById {
   '/doctor/patients/$id': typeof DoctorPatientsIdRoute
   '/doctor/plans/$id': typeof DoctorPlansIdRoute
   '/nurse/patients/$id': typeof NursePatientsIdRoute
+  '/doctor/chat/': typeof DoctorChatIndexRoute
   '/doctor/patients/': typeof DoctorPatientsIndexRoute
   '/doctor/plans/': typeof DoctorPlansIndexRoute
 }
@@ -368,7 +368,6 @@ export interface FileRouteTypes {
     | '/reports'
     | '/scales'
     | '/tasks'
-    | '/doctor/chat'
     | '/doctor/me'
     | '/doctor/stats'
     | '/education/$id'
@@ -387,6 +386,7 @@ export interface FileRouteTypes {
     | '/doctor/patients/$id'
     | '/doctor/plans/$id'
     | '/nurse/patients/$id'
+    | '/doctor/chat/'
     | '/doctor/patients/'
     | '/doctor/plans/'
   fileRoutesByTo: FileRoutesByTo
@@ -405,7 +405,6 @@ export interface FileRouteTypes {
     | '/reports'
     | '/scales'
     | '/tasks'
-    | '/doctor/chat'
     | '/doctor/me'
     | '/doctor/stats'
     | '/education/$id'
@@ -424,6 +423,7 @@ export interface FileRouteTypes {
     | '/doctor/patients/$id'
     | '/doctor/plans/$id'
     | '/nurse/patients/$id'
+    | '/doctor/chat'
     | '/doctor/patients'
     | '/doctor/plans'
   id:
@@ -444,7 +444,6 @@ export interface FileRouteTypes {
     | '/reports'
     | '/scales'
     | '/tasks'
-    | '/doctor/chat'
     | '/doctor/me'
     | '/doctor/stats'
     | '/education/$id'
@@ -463,6 +462,7 @@ export interface FileRouteTypes {
     | '/doctor/patients/$id'
     | '/doctor/plans/$id'
     | '/nurse/patients/$id'
+    | '/doctor/chat/'
     | '/doctor/patients/'
     | '/doctor/plans/'
   fileRoutesById: FileRoutesById
@@ -703,13 +703,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DoctorMeRouteImport
       parentRoute: typeof DoctorRoute
     }
-    '/doctor/chat': {
-      id: '/doctor/chat'
-      path: '/chat'
-      fullPath: '/doctor/chat'
-      preLoaderRoute: typeof DoctorChatRouteImport
-      parentRoute: typeof DoctorRoute
-    }
     '/doctor/plans/': {
       id: '/doctor/plans/'
       path: '/plans'
@@ -722,6 +715,13 @@ declare module '@tanstack/react-router' {
       path: '/patients'
       fullPath: '/doctor/patients/'
       preLoaderRoute: typeof DoctorPatientsIndexRouteImport
+      parentRoute: typeof DoctorRoute
+    }
+    '/doctor/chat/': {
+      id: '/doctor/chat/'
+      path: '/chat'
+      fullPath: '/doctor/chat/'
+      preLoaderRoute: typeof DoctorChatIndexRouteImport
       parentRoute: typeof DoctorRoute
     }
     '/nurse/patients/$id': {
@@ -747,44 +747,34 @@ declare module '@tanstack/react-router' {
     }
     '/doctor/chat/$id': {
       id: '/doctor/chat/$id'
-      path: '/$id'
+      path: '/chat/$id'
       fullPath: '/doctor/chat/$id'
       preLoaderRoute: typeof DoctorChatIdRouteImport
-      parentRoute: typeof DoctorChatRoute
+      parentRoute: typeof DoctorRoute
     }
   }
 }
 
-interface DoctorChatRouteChildren {
-  DoctorChatIdRoute: typeof DoctorChatIdRoute
-}
-
-const DoctorChatRouteChildren: DoctorChatRouteChildren = {
-  DoctorChatIdRoute: DoctorChatIdRoute,
-}
-
-const DoctorChatRouteWithChildren = DoctorChatRoute._addFileChildren(
-  DoctorChatRouteChildren,
-)
-
 interface DoctorRouteChildren {
-  DoctorChatRoute: typeof DoctorChatRouteWithChildren
   DoctorMeRoute: typeof DoctorMeRoute
   DoctorStatsRoute: typeof DoctorStatsRoute
   DoctorIndexRoute: typeof DoctorIndexRoute
+  DoctorChatIdRoute: typeof DoctorChatIdRoute
   DoctorPatientsIdRoute: typeof DoctorPatientsIdRoute
   DoctorPlansIdRoute: typeof DoctorPlansIdRoute
+  DoctorChatIndexRoute: typeof DoctorChatIndexRoute
   DoctorPatientsIndexRoute: typeof DoctorPatientsIndexRoute
   DoctorPlansIndexRoute: typeof DoctorPlansIndexRoute
 }
 
 const DoctorRouteChildren: DoctorRouteChildren = {
-  DoctorChatRoute: DoctorChatRouteWithChildren,
   DoctorMeRoute: DoctorMeRoute,
   DoctorStatsRoute: DoctorStatsRoute,
   DoctorIndexRoute: DoctorIndexRoute,
+  DoctorChatIdRoute: DoctorChatIdRoute,
   DoctorPatientsIdRoute: DoctorPatientsIdRoute,
   DoctorPlansIdRoute: DoctorPlansIdRoute,
+  DoctorChatIndexRoute: DoctorChatIndexRoute,
   DoctorPatientsIndexRoute: DoctorPatientsIndexRoute,
   DoctorPlansIndexRoute: DoctorPlansIndexRoute,
 }
@@ -860,3 +850,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
