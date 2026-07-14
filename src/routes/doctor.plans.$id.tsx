@@ -25,12 +25,31 @@ function PlanDetail() {
         </span>
       </header>
 
-      {/* 患者关键问题突出显示 */}
+      {/* 患者基本详情 */}
+      <section className="mx-3 mt-3 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-400 p-4 text-white shadow-[var(--shadow-soft)]">
+        <div className="flex items-center gap-3">
+          <div className="grid size-12 place-items-center rounded-full bg-white/20 text-lg font-bold">
+            {p.patient.slice(0, 1)}
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-base font-bold">{p.patient}</p>
+            <p className="text-[11px] opacity-90">男 · 68 岁 · 编号 {p.id.toUpperCase()}</p>
+          </div>
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+          <div className="flex items-center gap-1.5 rounded-lg bg-white/15 px-2 py-1.5"><Phone className="size-3.5" /> 138****6821</div>
+          <div className="flex items-center gap-1.5 rounded-lg bg-white/15 px-2 py-1.5"><MapPin className="size-3.5" /> 南京市鼓楼区</div>
+          <div className="flex items-center gap-1.5 rounded-lg bg-white/15 px-2 py-1.5"><HeartPulse className="size-3.5" /> 172cm / 78kg</div>
+          <div className="flex items-center gap-1.5 rounded-lg bg-white/15 px-2 py-1.5"><User className="size-3.5" /> 医保:城镇职工</div>
+        </div>
+      </section>
+
+      {/* 患者健康问题 */}
       <section className="mx-3 mt-3 rounded-2xl border border-rose-200 bg-gradient-to-br from-rose-50 to-amber-50 p-4 shadow-[var(--shadow-card)]">
         <p className="flex items-center gap-1.5 text-base font-bold text-rose-700">
-          <AlertTriangle className="size-4" /> 患者关键问题
+          <AlertTriangle className="size-4" /> 患者健康问题
         </p>
-        <p className="mt-1 text-xs text-rose-600/80">{p.patient} · {p.disease}</p>
+        <p className="mt-1 text-xs text-rose-600/80">{p.disease}</p>
         <ul className="mt-3 space-y-1.5">
           {issues.map((it, i) => (
             <li key={i} className="flex items-start gap-2 text-[13px] font-medium text-foreground">
@@ -40,6 +59,7 @@ function PlanDetail() {
           ))}
         </ul>
       </section>
+
 
       <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
         <div className="flex items-center gap-2">
