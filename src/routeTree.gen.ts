@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ScalesRouteImport } from './routes/scales'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as RecordsRouteImport } from './routes/records'
@@ -53,6 +54,11 @@ import { Route as DoctorChatIdRouteImport } from './routes/doctor.chat.$id'
 const TasksRoute = TasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScalesRoute = ScalesRouteImport.update({
@@ -267,6 +273,7 @@ export interface FileRoutesByFullPath {
   '/records': typeof RecordsRoute
   '/reports': typeof ReportsRoute
   '/scales': typeof ScalesRoute
+  '/shop': typeof ShopRoute
   '/tasks': typeof TasksRoute
   '/doctor/me': typeof DoctorMeRoute
   '/doctor/stats': typeof DoctorStatsRoute
@@ -307,6 +314,7 @@ export interface FileRoutesByTo {
   '/records': typeof RecordsRoute
   '/reports': typeof ReportsRoute
   '/scales': typeof ScalesRoute
+  '/shop': typeof ShopRoute
   '/tasks': typeof TasksRoute
   '/doctor/me': typeof DoctorMeRoute
   '/doctor/stats': typeof DoctorStatsRoute
@@ -350,6 +358,7 @@ export interface FileRoutesById {
   '/records': typeof RecordsRoute
   '/reports': typeof ReportsRoute
   '/scales': typeof ScalesRoute
+  '/shop': typeof ShopRoute
   '/tasks': typeof TasksRoute
   '/doctor/me': typeof DoctorMeRoute
   '/doctor/stats': typeof DoctorStatsRoute
@@ -394,6 +403,7 @@ export interface FileRouteTypes {
     | '/records'
     | '/reports'
     | '/scales'
+    | '/shop'
     | '/tasks'
     | '/doctor/me'
     | '/doctor/stats'
@@ -434,6 +444,7 @@ export interface FileRouteTypes {
     | '/records'
     | '/reports'
     | '/scales'
+    | '/shop'
     | '/tasks'
     | '/doctor/me'
     | '/doctor/stats'
@@ -476,6 +487,7 @@ export interface FileRouteTypes {
     | '/records'
     | '/reports'
     | '/scales'
+    | '/shop'
     | '/tasks'
     | '/doctor/me'
     | '/doctor/stats'
@@ -519,6 +531,7 @@ export interface RootRouteChildren {
   RecordsRoute: typeof RecordsRoute
   ReportsRoute: typeof ReportsRoute
   ScalesRoute: typeof ScalesRoute
+  ShopRoute: typeof ShopRoute
   TasksRoute: typeof TasksRoute
   QuestionnaireLifeRoute: typeof QuestionnaireLifeRoute
   QuestionnaireResultRoute: typeof QuestionnaireResultRoute
@@ -534,6 +547,13 @@ declare module '@tanstack/react-router' {
       path: '/tasks'
       fullPath: '/tasks'
       preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/scales': {
@@ -903,6 +923,7 @@ const rootRouteChildren: RootRouteChildren = {
   RecordsRoute: RecordsRoute,
   ReportsRoute: ReportsRoute,
   ScalesRoute: ScalesRoute,
+  ShopRoute: ShopRoute,
   TasksRoute: TasksRoute,
   QuestionnaireLifeRoute: QuestionnaireLifeRoute,
   QuestionnaireResultRoute: QuestionnaireResultRoute,
