@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, FileText, Activity, Users2, ChevronRight, AlertTriangle, Mic, Check } from "lucide-react";
+import { ChevronLeft, FileText, Activity, Users2, ChevronRight, AlertTriangle, Mic, Check, User, Phone, MapPin, HeartPulse } from "lucide-react";
 import { plansSeed } from "./doctor.plans.index";
 import { useState } from "react";
 
