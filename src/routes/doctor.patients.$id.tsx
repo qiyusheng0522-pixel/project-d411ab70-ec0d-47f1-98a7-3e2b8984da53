@@ -123,25 +123,6 @@ function PatientDetail() {
         </div>
       </section>
 
-      <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
-        <p className="text-sm font-bold text-foreground">生活方式</p>
-        <div className="mt-2 grid grid-cols-4 gap-2 text-center text-[11px]">
-          {[
-            { i: Utensils, l: "偏咸饮食", c: "text-amber-500 bg-amber-50" },
-            { i: Moon, l: "睡眠 5.5h", c: "text-rose-500 bg-rose-50" },
-            { i: Activity, l: "步数 3500", c: "text-amber-500 bg-amber-50" },
-            { i: Cigarette, l: "已戒烟", c: "text-emerald-600 bg-emerald-50" },
-          ].map((x) => {
-            const Icon = x.i;
-            return (
-              <div key={x.l} className={"rounded-xl py-3 " + x.c}>
-                <Icon className="mx-auto size-4" />
-                <p className="mt-1 text-foreground/80">{x.l}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
 
       <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
         <p className="flex items-center gap-1.5 text-sm font-bold text-foreground">
