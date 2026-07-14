@@ -15,6 +15,8 @@ type Problem = {
   tag: string;
   tone: Tone;
   paragraphs: string[];
+  advice?: string[];
+  goals?: string[];
 };
 
 const toneTagBg: Record<Tone, string> = {
@@ -22,6 +24,17 @@ const toneTagBg: Record<Tone, string> = {
   warn: "bg-amber-500",
   danger: "bg-rose-500",
 };
+
+const toneChipActive: Record<Tone, string> = {
+  ok: "bg-emerald-50 text-emerald-600 border-emerald-200",
+  warn: "bg-amber-50 text-amber-600 border-amber-200",
+  danger: "bg-rose-50 text-rose-600 border-rose-200",
+};
+
+// Candidate tags that may be shown as "concerns to watch" even if not triggered
+const DEFAULT_WATCH_TAGS = [
+  "预防三高", "血脂管理", "体重控制", "规律运动", "戒烟限酒", "睡眠健康", "情绪调节", "定期复诊",
+];
 
 function BodySilhouette({ className = "" }: { className?: string }) {
   return (
