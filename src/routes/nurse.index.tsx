@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Users, LayoutGrid, BookOpen, ChevronRight, Activity, MessageSquare,
-  LogOut, Stethoscope, ClipboardCheck,
+  LogOut, Stethoscope, ClipboardCheck, User,
 } from "lucide-react";
 import { PortalShell, type PortalTab } from "@/components/PortalShell";
 
@@ -12,6 +12,7 @@ export const nurseTabs: PortalTab[] = [
   { to: "/nurse/patients", label: "患者", icon: Users },
   { to: "/nurse/followup", label: "随访", icon: Stethoscope },
   { to: "/nurse/chat", label: "沟通", icon: MessageSquare },
+  { to: "/nurse/me", label: "我的", icon: User },
 ];
 
 const tiles = [
