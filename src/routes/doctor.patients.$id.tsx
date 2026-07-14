@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, MessageSquare, ClipboardCheck, HeartPulse, AlertTriangle, Pill, Activity, Phone, MapPin, Users, FlaskConical, Utensils, Moon, Cigarette, Droplet } from "lucide-react";
+import { ChevronLeft, MessageSquare, ClipboardCheck, HeartPulse, AlertTriangle, Pill, Activity, Phone, MapPin, Users, FlaskConical, Droplet } from "lucide-react";
 import { patients } from "./doctor.patients.index";
 
 export const Route = createFileRoute("/doctor/patients/$id")({ component: PatientDetail });
