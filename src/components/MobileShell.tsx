@@ -1,14 +1,15 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, ShieldCheck, Utensils, User, Sparkles } from "lucide-react";
+import { Home, ShieldCheck, Utensils, User, Sparkles, ShoppingBag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { OnboardingPrompt } from "@/components/OnboardingPrompt";
 import { RoleSwitcher } from "@/components/RoleSwitcher";
 
 const tabs = [
   { to: "/patient", label: "首页", icon: Home },
-  { to: "/questionnaire", label: "风险评估", icon: ShieldCheck },
+  { to: "/questionnaire", label: "评估", icon: ShieldCheck },
   { to: "/ai", label: "AI助手", icon: Sparkles, highlight: true },
-  { to: "/plan", label: "健康方案", icon: Utensils },
+  { to: "/plan", label: "方案", icon: Utensils },
+  { to: "/shop", label: "商城", icon: ShoppingBag },
   { to: "/me", label: "我的", icon: User },
 ] as const;
 
