@@ -116,7 +116,7 @@ function NurseFollowup() {
             {list.map((p) => (
               <li key={p.id}>
                 <Link
-                  to={tab === "pending" ? "/nurse/followup_/$id" : "/nurse/patients/$id"}
+                  to={tab === "pending" ? "/nurse/followup/$id" : "/nurse/patients/$id"}
                   params={{ id: p.id }}
                   className="flex items-start gap-3 py-3 active:bg-muted/40"
                 >
