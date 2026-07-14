@@ -78,13 +78,14 @@ function PatientDetail() {
       <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
         <p className="text-sm font-bold text-foreground">诊断与既往史</p>
         <div className="mt-2 flex flex-wrap gap-1.5">
-          {["缺血性卒中 (2025)", "原发性高血压 2 级", "2 型糖尿病", "高脂血症", "颈动脉粥样硬化"].map((t) => (
+          {["缺血性卒中 (2025)", "原发性高血压 2 级", "颈动脉粥样硬化", "高脂血症", "非瓣膜性房颤"].map((t) => (
             <span key={t} className="rounded-md bg-sky-50 px-2 py-0.5 text-[11px] text-sky-700">{t}</span>
           ))}
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          家族史:父亲高血压、母亲糖尿病;过敏史:青霉素过敏;吸烟史 30 年,已戒 6 月。
+          家族史:父亲脑梗死、母亲高血压;过敏史:青霉素过敏;吸烟史 30 年,已戒 6 月。
         </p>
+
       </section>
 
       <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
@@ -94,7 +95,7 @@ function PatientDetail() {
             { n: "缬沙坦氨氯地平片", d: "80/5 mg qd 晨", tag: "降压", c: "text-rose-500" },
             { n: "阿托伐他汀钙片", d: "20 mg qn 睡前", tag: "调脂", c: "text-amber-500" },
             { n: "阿司匹林肠溶片", d: "100 mg qd 餐后", tag: "抗血小板", c: "text-sky-500" },
-            { n: "二甲双胍缓释片", d: "500 mg bid", tag: "降糖", c: "text-emerald-500" },
+            { n: "氯吡格雷片", d: "75 mg qd", tag: "抗血小板", c: "text-emerald-500" },
           ].map((m) => (
             <li key={m.n} className="flex items-center gap-2 py-2">
               <Pill className={"size-4 " + m.c} />

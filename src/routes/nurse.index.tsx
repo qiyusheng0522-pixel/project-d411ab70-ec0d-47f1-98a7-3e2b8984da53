@@ -17,15 +17,16 @@ export const nurseTabs: PortalTab[] = [
 
 const tiles = [
   { icon: Users, iconBg: "bg-sky-100", iconColor: "text-sky-600", count: "2", unit: "在管", title: "患者档案", sub: "在管 · 社区", to: "/nurse/patients" as const, countColor: "text-sky-600" },
-  { icon: BookOpen, iconBg: "bg-amber-100", iconColor: "text-amber-600", count: "0", unit: "条待推送", title: "宣教", sub: "糖尿病/甲状腺管理", to: "/nurse/education" as const, countColor: "text-amber-600" },
+  { icon: BookOpen, iconBg: "bg-amber-100", iconColor: "text-amber-600", count: "0", unit: "条待推送", title: "宣教", sub: "卒中康复/二级预防", to: "/nurse/education" as const, countColor: "text-amber-600" },
   { icon: MessageSquare, iconBg: "bg-emerald-100", iconColor: "text-emerald-600", count: "0", unit: "条未读", title: "沟通", sub: "患者/上级医生", to: "/nurse/chat" as const, countColor: "text-emerald-600" },
   { icon: AlertTriangle, iconBg: "bg-rose-100", iconColor: "text-rose-600", count: "0", unit: "位异常", title: "异常", sub: "异常患者待处置", to: "/nurse/patients" as const, countColor: "text-rose-600" },
-  { icon: Stethoscope, iconBg: "bg-orange-100", iconColor: "text-orange-600", count: "1", unit: "位待随访", title: "随访", sub: "术后/慢病随访", to: "/nurse/followup" as const, countColor: "text-orange-500" },
+  { icon: Stethoscope, iconBg: "bg-orange-100", iconColor: "text-orange-600", count: "1", unit: "位待随访", title: "随访", sub: "卒中/慢病随访", to: "/nurse/followup" as const, countColor: "text-orange-500" },
 ];
 
 const todos = [
-  { id: "1", priority: 1, tags: ["随访", "重要"], name: "韩晶", disease: "糖尿病", days: "服务第 9 天", note: "住院准备 · 服务第 9 天" },
+  { id: "1", priority: 1, tags: ["随访", "重要"], name: "韩晶", disease: "缺血性卒中恢复期", days: "服务第 9 天", note: "康复评估 · 服务第 9 天" },
 ];
+
 
 function NurseHome() {
   return (
