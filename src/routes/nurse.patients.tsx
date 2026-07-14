@@ -8,7 +8,7 @@ export const Route = createFileRoute("/nurse/patients")({ component: NursePatien
 const list = [
   { id: "n001", name: "张大伯", room: "三病房 · 302", bed: "床 12", tag: "缺血性卒中 · 恢复期", risk: "danger", note: "血压偏高 · 需 10:00 服药" },
   { id: "n002", name: "李阿姨", room: "三病房 · 305", bed: "床 03", tag: "TIA 后随访", risk: "warn", note: "情绪低落 · 待心理评估" },
-  { id: "n003", name: "王先生", room: "四病房 · 401", bed: "床 08", tag: "高血压 / 糖尿病", risk: "warn", note: "空腹血糖偏高" },
+  { id: "n003", name: "王先生", room: "四病房 · 401", bed: "床 08", tag: "颈动脉狭窄 / 高血压", risk: "warn", note: "颈动脉狭窄 60% 待评估" },
   { id: "n004", name: "陈女士", room: "四病房 · 402", bed: "床 05", tag: "康复期", risk: "ok", note: "各项指标平稳" },
   { id: "n005", name: "赵大爷", room: "三病房 · 301", bed: "床 09", tag: "复发高危", risk: "danger", note: "抗血小板药中断" },
   { id: "n006", name: "刘女士", room: "五病房 · 502", bed: "床 02", tag: "健康宣教", risk: "ok", note: "配合度良好" },

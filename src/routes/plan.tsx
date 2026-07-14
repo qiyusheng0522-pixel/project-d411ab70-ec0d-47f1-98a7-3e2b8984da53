@@ -225,7 +225,7 @@ function Plan() {
 
           {/* 左：疾病 */}
           <div className="absolute left-0 top-2 flex flex-col items-start gap-2.5">
-            {["缺血性卒中", "高血压", "2型糖尿病"].map((t) => (
+            {["缺血性卒中", "高血压", "颈动脉狭窄"].map((t) => (
               <span
                 key={"d-" + t}
                 className="inline-flex items-center rounded-md bg-rose-500 px-2.5 py-1 text-[13px] font-semibold text-white shadow-md"
@@ -488,16 +488,16 @@ type Exercise = {
 const exercises: Exercise[] = [
   {
     id: "walk",
-    name: "餐后控糖快走",
+    name: "卒中康复快走",
     level: "入门",
-    tags: ["糖尿病前期", "餐后血糖偏高", "久坐办公"],
+    tags: ["卒中恢复期", "轻度偏瘫", "久坐办公"],
     timeSlot: "午餐后 13:00",
     coach: "刘虹",
     coachTitle: "奥运竞走冠军",
     coachTime: "08:12",
     learners: "12.6 万",
-    courseTitle: "8 分钟控糖快走法 · 餐后激活",
-    goal: "800 步 · 配速 6km/h",
+    courseTitle: "8 分钟卒中康复快走法 · 平衡与耐力",
+    goal: "800 步 · 配速 4km/h",
     streak: 12,
     done: true,
     emoji: "🚶‍♀️",
@@ -506,7 +506,7 @@ const exercises: Exercise[] = [
     intensity: "中低强度 · 40–60% 最大心率",
     frequency: "每周 3–5 次",
     duration: "8-10 分钟",
-    target: "改善心肺功能、辅助降压降糖、降低卒中复发风险",
+    target: "改善心肺功能、辅助降压、降低卒中复发风险",
     steps: [
       "热身 5 分钟:原地踏步 + 关节活动",
       "主活动 20–30 分钟:平坦路面匀速快走,能说话不能唱歌为宜",
@@ -528,7 +528,7 @@ const exercises: Exercise[] = [
     coachTitle: "体操奥运冠军",
     coachTime: "12:30",
     learners: "8.3 万",
-    courseTitle: "护膝静力训练 · 高血压人群友好",
+    courseTitle: "护膝静力训练 · 卒中人群友好",
     goal: "3 组 × 每侧 30 秒",
     streak: 5,
     done: false,
@@ -538,6 +538,7 @@ const exercises: Exercise[] = [
     intensity: "低强度 · 自感轻松略吃力",
     frequency: "每周 3 次",
     duration: "12 分钟",
+
     target: "提升平衡能力、下肢力量,降低跌倒风险,改善睡眠情绪",
     steps: [
       "预备式:两脚开立与肩同宽,呼吸自然",

@@ -11,9 +11,10 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/me")({ component: Me });
 
 const tags = [
-  "缺血性卒中", "高血压", "2型糖尿病", "高脂血症",
-  "右侧偏瘫", "言语障碍", "吸烟史", "房颤",
+  "缺血性卒中", "高血压", "颈动脉狭窄", "高脂血症",
+  "右侧偏瘫", "言语障碍", "吸烟史", "非瓣膜性房颤",
 ];
+
 
 function Me() {
   const [section, setSection] = useState<"home" | "profile" | "consent" | "tags">("home");

@@ -9,7 +9,7 @@ export const Route = createFileRoute("/doctor/chat/")({ component: DoctorChat })
 const threads = [
   { id: "1", name: "张大伯", last: "医生,今天早上血压 158/96,要不要加药?", time: "10:22", unread: 2, pin: true },
   { id: "2", name: "李阿姨", last: "情绪最近有点差,晚上睡不好。", time: "09:41", unread: 0, pin: false },
-  { id: "3", name: "王先生", last: "空腹血糖 7.8,饮食有点管不住。", time: "昨天", unread: 0, pin: false },
+  { id: "3", name: "王先生", last: "颈动脉超声报告出了,狭窄 60%,严重吗?", time: "昨天", unread: 0, pin: false },
   { id: "4", name: "康复群 · 三病房", last: "护士王:今日康复训练打卡。", time: "昨天", unread: 5, pin: false },
   { id: "5", name: "赵大爷", last: "药停了两天,是不是没事?", time: "周三", unread: 0, pin: false },
 ];

@@ -17,7 +17,7 @@ const seedByPatient: Record<string, { name: string; msgs: Msg[] }> = {
     ],
   },
   "2": { name: "李阿姨", msgs: [{ id: "m1", role: "them", text: "情绪最近有点差,晚上睡不好。", time: "09:41" }] },
-  "3": { name: "王先生", msgs: [{ id: "m1", role: "them", text: "空腹血糖 7.8,饮食有点管不住。", time: "昨天" }] },
+  "3": { name: "王先生", msgs: [{ id: "m1", role: "them", text: "颈动脉超声报告出了,狭窄 60%,严重吗?", time: "昨天" }] },
   "4": { name: "康复群", msgs: [{ id: "m1", role: "them", text: "护士王:今日康复训练打卡。", time: "昨天" }] },
   "5": { name: "赵大爷", msgs: [{ id: "m1", role: "them", text: "药停了两天,是不是没事?", time: "周三" }] },
 };

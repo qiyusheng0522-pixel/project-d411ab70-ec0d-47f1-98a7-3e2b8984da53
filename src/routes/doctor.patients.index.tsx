@@ -9,7 +9,7 @@ export const Route = createFileRoute("/doctor/patients/")({ component: DoctorPat
 export const patients = [
   { id: "p001", name: "张大伯", age: 68, gender: "男", tag: "缺血性卒中", risk: "danger", last: "2 小时前", note: "血压 158/96,连续 3 天偏高" },
   { id: "p002", name: "李阿姨", age: 62, gender: "女", tag: "TIA 后随访", risk: "warn", last: "今日 10:20", note: "PHQ-9 抑郁筛查 12 分" },
-  { id: "p003", name: "王先生", age: 55, gender: "男", tag: "高血压 + 糖尿病", risk: "warn", last: "昨天", note: "空腹血糖 7.8" },
+  { id: "p003", name: "王先生", age: 55, gender: "男", tag: "颈动脉狭窄 · 高血压", risk: "warn", last: "昨天", note: "颈动脉狭窄 60%,LDL-C 3.4" },
   { id: "p004", name: "陈女士", age: 71, gender: "女", tag: "康复期", risk: "ok", last: "3 天前", note: "mRS 2 级,进展稳定" },
   { id: "p005", name: "赵大爷", age: 74, gender: "男", tag: "复发高危", risk: "danger", last: "4 天前", note: "自行停用抗血小板药" },
   { id: "p006", name: "刘女士", age: 58, gender: "女", tag: "健康宣教", risk: "ok", last: "上周", note: "各项指标平稳" },

@@ -7,17 +7,18 @@ import { nurseTabs } from "./nurse.index";
 export const Route = createFileRoute("/nurse/education")({ component: NurseEducation });
 
 const materials = [
-  { id: "e1", cat: "高血压", title: "低盐饮食指导", tag: "饮食" },
-  { id: "e2", cat: "高血压", title: "家庭血压测量方法", tag: "监测" },
-  { id: "e3", cat: "糖尿病", title: "糖尿病饮食原则", tag: "饮食" },
-  { id: "e4", cat: "糖尿病", title: "空腹与餐后 2h 血糖监测", tag: "监测" },
-  { id: "e5", cat: "康复", title: "偏瘫肢体康复训练要点", tag: "康复" },
-  { id: "e6", cat: "心理", title: "情绪管理与睡眠改善", tag: "心理" },
-  { id: "e7", cat: "用药", title: "抗血小板药服药依从性", tag: "用药" },
-  { id: "e8", cat: "生活方式", title: "戒烟限酒与运动建议", tag: "生活" },
+  { id: "e1", cat: "高血压", title: "低盐饮食与家庭血压测量", tag: "监测" },
+  { id: "e2", cat: "抗栓", title: "抗血小板/抗凝药服药要点", tag: "用药" },
+  { id: "e3", cat: "识别", title: "FAST 法快速识别卒中先兆", tag: "识别" },
+  { id: "e4", cat: "康复", title: "偏瘫肢体康复训练要点", tag: "康复" },
+  { id: "e5", cat: "康复", title: "吞咽障碍进食安全指导", tag: "康复" },
+  { id: "e6", cat: "心理", title: "卒中后情绪管理与睡眠改善", tag: "心理" },
+  { id: "e7", cat: "用药", title: "他汀类药物依从性与副作用", tag: "用药" },
+  { id: "e8", cat: "生活方式", title: "戒烟限酒与规律有氧运动", tag: "生活" },
 ];
 
-const cats = ["全部", "高血压", "糖尿病", "康复", "心理", "用药", "生活方式"];
+const cats = ["全部", "高血压", "抗栓", "识别", "康复", "心理", "用药", "生活方式"];
+
 
 function NurseEducation() {
   const [q, setQ] = useState("");

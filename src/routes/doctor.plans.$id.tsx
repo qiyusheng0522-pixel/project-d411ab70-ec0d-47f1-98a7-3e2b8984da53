@@ -139,39 +139,51 @@ function Field({ label, value, accent, center }: { label: string; value: string;
 }
 
 function extractIssues(disease: string, _assessment: string): string[] {
-  if (disease.includes("糖尿病")) {
+  if (disease.includes("TIA") || disease.includes("短暂")) {
     return [
-      "BMI ≥ 30,存在肥胖,胰岛素抵抗风险高",
-      "腰围 ≥ 95 cm,腹型肥胖显著",
-      "收缩压 140-149 mmHg,合并高血压",
-      "CDRS 评分 31 分,属糖尿病高风险人群",
-      "长期疲乏、气短,建议排查代谢综合征",
+      "ABCD² 评分 5 分,48h 内卒中风险高",
+      "既往高血压 10 年,近月控制不佳",
+      "颈动脉斑块负荷中等,存在动脉粥样硬化",
+      "吸烟史 20 年,尚未戒烟",
     ];
   }
-  if (disease.includes("甲状腺")) {
+  if (disease.includes("房颤") || disease.includes("心源性")) {
     return [
-      "TI-RADS 3 类结节,恶性风险 <2%",
-      "TSH / FT3 / FT4 目前在正常范围",
-      "需 6-12 个月超声随访,警惕结节增大",
+      "CHA₂DS₂-VASc 5 分,卒中年发生率 >6%",
+      "非瓣膜性房颤,已启动 NOAC 抗凝",
+      "HAS-BLED 2 分,出血风险中等",
+      "左心房增大,需长期心律监测",
+    ];
+  }
+  if (disease.includes("恢复期") || disease.includes("康复")) {
+    return [
+      "mRS 3 级,日常活动部分依赖",
+      "右侧偏瘫 Brunnstrom Ⅲ-Ⅳ 期",
+      "轻度构音障碍,吞咽功能待复评",
+      "LDL-C 2.1 mmol/L,需继续强化他汀",
     ];
   }
   return [
-    "HbA1c 由 7.6% → 8.1%,血糖控制不佳",
-    "空腹血糖波动 7.0-8.5 mmol/L",
-    "需评估用药依从性与饮食因素",
+    "Essen 评分 4 分,卒中复发高风险",
+    "颈动脉狭窄 60%,存在血流受限",
+    "血压波动 140-160/90 mmHg,控制不佳",
+    "NIHSS 4 分,轻度神经功能缺损",
+    "吸烟史 30 年,已戒 6 个月",
   ];
 }
 
+
 function structurePlan(text: string): { title: string; body: string }[] {
-  // 结构化模板:饮食 / 运动 / 用药 / 监测 / 随访
+  // 结构化模板:药物 / 康复 / 饮食 / 监测 / 随访
   return [
-    { title: "饮食管理", body: pick(text, ["饮食", "餐", "饮水", "糖", "盐", "奶"]) || "低糖低脂饮食,规律三餐,每日饮水 ≥ 2000 ml,控制外卖 ≤ 1 次/周。" },
-    { title: "运动方案", body: pick(text, ["运动", "步行", "太极", "有氧"]) || "每周 5 天 × 30 分钟中等强度运动(快走 / 太极)。" },
-    { title: "用药与治疗", body: pick(text, ["二甲双胍", "药", "SGLT2", "胰岛素", "剂量"]) || "遵医嘱用药,不擅自增减剂量。" },
-    { title: "监测指标", body: pick(text, ["监测", "血糖", "血压", "腰围", "HbA1c", "复查"]) || "每周记录空腹与餐后 2h 血糖,每月测腰围与血压。" },
-    { title: "随访计划", body: pick(text, ["随访", "复评", "门诊", "两周", "复查"]) || "每 2 周社区随访 1 次,4 周门诊复评 HbA1c。" },
+    { title: "药物治疗", body: pick(text, ["阿司匹林", "氯吡格雷", "他汀", "抗血小板", "抗凝", "利伐沙班", "NOAC", "药"]) || "遵医嘱规律服用抗血小板与他汀,勿自行停药。" },
+    { title: "康复训练", body: pick(text, ["康复", "PT", "OT", "训练", "言语", "肢体", "偏瘫"]) || "每日肢体主动+被动训练 2 次,言语与吞咽训练循序进行。" },
+    { title: "饮食管理", body: pick(text, ["饮食", "低盐", "低脂", "深海鱼", "蔬果", "戒烟", "限酒"]) || "低盐(<5 g/日)低脂饮食,增加蔬果与深海鱼,戒烟限酒。" },
+    { title: "监测指标", body: pick(text, ["血压", "LDL", "血脂", "颈动脉", "NIHSS", "mRS", "心率", "监测"]) || "每日晨起血压、每周体重与步态;每 3 个月复查血脂与颈动脉超声。" },
+    { title: "随访计划", body: pick(text, ["随访", "复评", "门诊", "两周", "复查"]) || "每 2 周神经内科门诊随访,评估 NIHSS / mRS 与药物依从性。" },
   ];
 }
+
 
 function pick(text: string, keys: string[]): string {
   const sentences = text.split(/[。;;]/).map((s) => s.trim()).filter(Boolean);

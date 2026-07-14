@@ -6,8 +6,9 @@ import { nurseTabs } from "./nurse.index";
 export const Route = createFileRoute("/nurse/followup")({ component: NurseFollowup });
 
 const list = [
-  { id: "n001", name: "韩晶", disease: "糖尿病", days: "服务第 9 天", plan: "住院准备 · 术前评估", priority: "重要" },
+  { id: "n001", name: "韩晶", disease: "缺血性卒中恢复期", days: "服务第 9 天", plan: "康复训练 · NIHSS 复评", priority: "重要" },
 ];
+
 
 function NurseFollowup() {
   return (

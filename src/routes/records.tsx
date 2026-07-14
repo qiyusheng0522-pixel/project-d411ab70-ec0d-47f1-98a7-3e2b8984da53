@@ -190,11 +190,12 @@ function Records() {
             <p className="mb-3 text-center text-sm font-bold text-slate-800">健康评估</p>
             <ul className="space-y-2">
               {[
-                { label: "2 型糖尿病", tone: "bg-rose-50 text-rose-600 ring-rose-200" },
+                { label: "缺血性卒中", tone: "bg-rose-50 text-rose-600 ring-rose-200" },
                 { label: "高血压 2 级", tone: "bg-orange-50 text-orange-600 ring-orange-200" },
                 { label: "高脂血症", tone: "bg-amber-50 text-amber-700 ring-amber-200" },
-                { label: "甲状腺结节", tone: "bg-violet-50 text-violet-600 ring-violet-200" },
+                { label: "颈动脉狭窄", tone: "bg-violet-50 text-violet-600 ring-violet-200" },
               ].map((t) => (
+
                 <li key={t.label} className={`rounded-full px-3 py-1 text-center text-xs font-semibold ring-1 ${t.tone}`}>
                   {t.label}
                 </li>
