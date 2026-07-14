@@ -465,7 +465,7 @@ function ResultPage() {
                 key={"l-" + t.label}
                 className={`inline-flex max-w-full items-center gap-1 rounded-full border px-2.5 py-1 text-[12px] font-semibold shadow-sm ${chipClass(t)}`}
               >
-                <span className={`inline-block size-1.5 rounded-full ${t.activeTagDot ?? (t.active ? toneTagBg[t.tone] : "bg-emerald-300")}`.replace("undefined", "")} />
+                <span className={`inline-block size-1.5 rounded-full ${t.active ? toneTagBg[t.tone] : "bg-emerald-300"}`} />
                 {t.label}
               </span>
             ))}
