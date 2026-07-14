@@ -2,12 +2,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ChevronLeft, MessageSquare, ClipboardCheck, HeartPulse, AlertTriangle, Pill,
   Activity, Phone, MapPin, Users, FlaskConical, Utensils, Moon, Cigarette,
-  Droplet, BookOpen, Send, X, NotebookPen, Sparkles,
+  Droplet, BookOpen, Send, X, NotebookPen, Sparkles, Building2, Check, ArrowRightLeft,
 } from "lucide-react";
 import { useState } from "react";
 import { nurseList } from "./nurse.patients";
 
 export const Route = createFileRoute("/nurse/patients/$id")({ component: NursePatientDetail });
+
+const communities = [
+  { id: "c1", name: "鼓楼区湖南路社区卫生服务中心", tag: "距离 1.2km · 已签约" },
+  { id: "c2", name: "玄武区新街口社区卫生服务中心", tag: "距离 2.6km" },
+  { id: "c3", name: "秦淮区红花社区卫生服务中心", tag: "距离 3.4km" },
+];
 
 const quickMsgs = [
   "请按医嘱继续服药,勿自行停药",
@@ -31,6 +37,15 @@ function NursePatientDetail() {
   const [toast, setToast] = useState<string | null>(null);
   const [notes, setNotes] = useState(seedNotes);
   const [noteDraft, setNoteDraft] = useState("");
+  const [transferOpen, setTransferOpen] = useState(false);
+  const [transferred, setTransferred] = useState(false);
+  const [community, setCommunity] = useState(communities[0].id);
+  const [handover, setHandover] = useState(
+    "术后恢复平稳,mRS 2 级。华法林 3mg qd,INR 目标 2-3。血压近 3 天偏高,建议社区继续监测。",
+  );
+  const [followupPlan, setFollowupPlan] = useState("首次上门 3 天内 · 之后每 2 周随访 1 次,持续 3 个月");
+
+  const isDischargeReady = p.stage === "待出院";
 
   const send = (raw?: string) => {
     const text = (raw ?? draft).trim();
@@ -39,6 +54,14 @@ function NursePatientDetail() {
     setDraft("");
     setToast(`已发送给 ${p.name}:${text.length > 14 ? text.slice(0, 14) + "…" : text}`);
     setTimeout(() => setToast(null), 2200);
+  };
+
+  const confirmTransfer = () => {
+    const c = communities.find((x) => x.id === community);
+    setTransferred(true);
+    setTransferOpen(false);
+    setToast(`已将 ${p.name} 下转至${c?.name ?? "社区"}`);
+    setTimeout(() => setToast(null), 2400);
   };
 
   const addNote = () => {
