@@ -130,13 +130,5 @@ function DoctorMe() {
   );
 }
 
-function Stat({ value, label, color }: { value: string; label: string; color: string }) {
-  return (
-    <div className="text-center">
-      <p className={`text-2xl font-bold ${color}`}>{value}</p>
-      <p className="mt-1 text-[12px] text-muted-foreground">{label}</p>
-    </div>
-  );
-}
-
 void User;
+
