@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import { MobileShell } from "@/components/MobileShell";
 import {
   loadSelf, loadLife, ensureDefaultQuestionnaires,
