@@ -116,7 +116,8 @@ function NurseFollowup() {
             {list.map((p) => (
               <li key={p.id}>
                 <Link
-                  to="/nurse/patients"
+                  to="/nurse/patients/$id"
+                  params={{ id: p.id }}
                   className="flex items-start gap-3 py-3 active:bg-muted/40"
                 >
                   <div className="grid size-11 shrink-0 place-items-center rounded-full bg-orange-100 text-sm font-bold text-orange-600">
