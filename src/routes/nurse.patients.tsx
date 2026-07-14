@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Search, Crown, MessageSquare, ChevronRight, Clock } from "lucide-react";
+import { Search, Crown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { PortalShell } from "@/components/PortalShell";
 import { nurseTabs } from "./nurse.index";
