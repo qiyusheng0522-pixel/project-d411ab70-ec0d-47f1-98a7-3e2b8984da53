@@ -23,8 +23,8 @@ const quickMsgs = [
 ];
 
 const seedNotes = [
-  { id: "1", time: "今天 08:20", author: "张宁", text: "晨起血压 148/92,已提醒按时服药,情绪平稳。" },
-  { id: "2", time: "今天 10:05", author: "张宁", text: "完成低盐饮食宣教,家属配合度良好。" },
+  { id: "1", time: "今天 08:20", author: "李护士", text: "晨起血压 148/92,已提醒按时服药,情绪平稳。" },
+  { id: "2", time: "今天 10:05", author: "李护士", text: "完成低盐饮食宣教,家属配合度良好。" },
   { id: "3", time: "昨天 20:10", author: "夜班", text: "睡前测量血压 138/86,夜间无不适。" },
 ];
 
@@ -69,7 +69,7 @@ function NursePatientDetail() {
     if (!text) return;
     const now = new Date();
     const time = `今天 ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-    setNotes((n) => [{ id: crypto.randomUUID(), time, author: "张宁", text }, ...n]);
+    setNotes((n) => [{ id: crypto.randomUUID(), time, author: "李护士", text }, ...n]);
     setNoteDraft("");
   };
 

@@ -51,7 +51,7 @@ function NurseHome() {
   return (
     <PortalShell role="nurse" title="工作台" tabs={nurseTabs}>
       <section className="mx-3 mt-3 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 p-4 text-white shadow-[var(--shadow-card)]">
-        <p className="text-lg font-bold">张宁,下午好 👋</p>
+        <p className="text-lg font-bold">李护士,下午好 👋</p>
         <p className="mt-1 text-xs text-white/85">今日 5 项待处理 · 神经科卒中专病组</p>
       </section>
 

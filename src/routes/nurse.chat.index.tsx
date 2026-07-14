@@ -24,7 +24,7 @@ export const nurseThreads: NurseThread[] = [
   {
     id: "1",
     patient: "陈建国",
-    nurse: "张宁",
+    nurse: "李护士",
     vip: true,
     stage: "住院办理",
     status: "active",
@@ -37,7 +37,7 @@ export const nurseThreads: NurseThread[] = [
   {
     id: "2",
     patient: "王秀兰",
-    nurse: "张宁",
+    nurse: "李护士",
     vip: true,
     stage: "住院准备",
     status: "active",
@@ -50,7 +50,7 @@ export const nurseThreads: NurseThread[] = [
   {
     id: "3",
     patient: "李国强",
-    nurse: "张宁",
+    nurse: "李护士",
     vip: false,
     stage: "住院办理",
     status: "expired",
@@ -63,7 +63,7 @@ export const nurseThreads: NurseThread[] = [
   {
     id: "4",
     patient: "赵美华",
-    nurse: "张宁",
+    nurse: "李护士",
     vip: false,
     stage: "居家随访",
     status: "active",
@@ -76,7 +76,7 @@ export const nurseThreads: NurseThread[] = [
   {
     id: "5",
     patient: "刘志明",
-    nurse: "张宁",
+    nurse: "李护士",
     vip: false,
     stage: "居家随访",
     status: "expired",

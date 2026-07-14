@@ -28,7 +28,7 @@ function NurseMe() {
         <div className="flex items-center gap-3">
           <div className="grid size-14 place-items-center rounded-full bg-white/25 text-lg font-bold">张</div>
           <div className="min-w-0 flex-1">
-            <p className="text-lg font-bold">张宁</p>
+            <p className="text-lg font-bold">李护士</p>
             <p className="mt-0.5 text-xs text-white/85">护士 · 神经科卒中专病组</p>
           </div>
           <Link to="/" className="grid size-9 place-items-center rounded-full bg-white/15 active:scale-95">
