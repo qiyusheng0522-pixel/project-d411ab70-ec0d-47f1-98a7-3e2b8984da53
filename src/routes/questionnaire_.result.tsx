@@ -32,31 +32,21 @@ const toneChipActive: Record<Tone, string> = {
   danger: "bg-rose-50 text-rose-600 border-rose-200",
 };
 
-// Candidate tags that may be shown as "concerns to watch" even if not triggered
-const DEFAULT_WATCH_TAGS = [
-  "预防三高", "血脂管理", "体重控制", "规律运动", "戒烟限酒", "睡眠健康", "情绪调节", "定期复诊",
-];
+// Disease/medical tags (疾病标签) - clinical concerns
+const DISEASE_TAGS = new Set([
+  "急性卒中征象", "卒中复发风险", "功能残障", "情绪障碍", "用药不规律",
+  "预防三高", "血脂管理", "定期复诊",
+]);
 
-function BodySilhouette({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 200 380" className={className} fill="currentColor" aria-hidden>
-      <ellipse cx="100" cy="42" rx="26" ry="30" />
-      <rect x="90" y="66" width="20" height="18" rx="6" />
-      <path d="M62 92 Q100 78 138 92 L150 190 Q150 210 138 220 L62 220 Q50 210 50 190 Z" />
-      <path d="M56 96 Q34 150 42 220 Q46 240 54 240 Q62 236 58 220 Q56 168 68 110 Z" />
-      <path d="M144 96 Q166 150 158 220 Q154 240 146 240 Q138 236 142 220 Q144 168 132 110 Z" />
-      <path d="M62 218 L138 218 L134 250 L66 250 Z" />
-      <path d="M66 250 Q60 320 68 366 Q72 374 82 372 Q90 370 92 360 Q94 310 96 252 Z" />
-      <path d="M134 250 Q140 320 132 366 Q128 374 118 372 Q110 370 108 360 Q106 310 104 252 Z" />
-      <g opacity="0.35">
-        <ellipse cx="88" cy="130" rx="14" ry="20" />
-        <ellipse cx="112" cy="130" rx="14" ry="20" />
-        <ellipse cx="100" cy="170" rx="18" ry="14" />
-        <rect x="86" y="188" width="28" height="26" rx="8" />
-      </g>
-    </svg>
-  );
+// Lifestyle default watch tags (生活标签)
+const DEFAULT_LIFE_TAGS = ["体重控制", "规律运动", "戒烟限酒", "睡眠健康", "情绪调节"];
+const DEFAULT_DISEASE_TAGS = ["预防三高", "血脂管理", "定期复诊"];
+
+function categoryOf(tag: string): "disease" | "life" {
+  return DISEASE_TAGS.has(tag) ? "disease" : "life";
 }
+
+
 
 const GUIDE_KEY = "questionnaire_result_guide_collapsed";
 
