@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import { MobileShell } from "@/components/MobileShell";
+import virtualHuman from "@/assets/virtual-human.png";
 import {
   loadSelf, loadLife, ensureDefaultQuestionnaires,
   scoreEssen, essenLevel, befastPositive, scorePHQ9, phq9Level,
