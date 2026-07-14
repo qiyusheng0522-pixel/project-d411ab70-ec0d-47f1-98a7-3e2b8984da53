@@ -26,11 +26,6 @@ const toneTagBg: Record<Tone, string> = {
   danger: "bg-rose-500",
 };
 
-const toneChipActive: Record<Tone, string> = {
-  ok: "bg-emerald-50 text-emerald-600 border-emerald-200",
-  warn: "bg-amber-50 text-amber-600 border-amber-200",
-  danger: "bg-rose-50 text-rose-600 border-rose-200",
-};
 
 // Disease/medical tags (疾病标签) - clinical concerns
 const DISEASE_TAGS = new Set([
