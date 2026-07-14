@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Send, X, Check, ChevronRight, Plus, Eye, Activity, HeartPulse, Bell } from "lucide-react";
+import { Send, X, Check, ChevronRight, Eye, Activity, HeartPulse, Bell } from "lucide-react";
 import { useState } from "react";
 import { PortalShell } from "@/components/PortalShell";
 import { nurseTabs } from "./nurse.index";
