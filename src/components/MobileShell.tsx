@@ -20,7 +20,7 @@ export function MobileShell({ children }: { children: React.ReactNode }) {
       <main className="min-h-0 flex-1 overflow-y-auto">{children}</main>
       <OnboardingPrompt />
       <nav className="sticky bottom-0 z-40 border-t border-border bg-card/95 backdrop-blur">
-        <ul className="grid grid-cols-5">
+        <ul className="grid grid-cols-6">
           {tabs.map((t) => {
             const active = t.to === "/patient" ? pathname === "/patient" : pathname.startsWith(t.to);
             const Icon = t.icon;
