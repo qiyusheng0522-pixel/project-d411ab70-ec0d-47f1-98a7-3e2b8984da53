@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, Send, Paperclip, Image as ImageIcon, ClipboardCheck, Sparkles, X, Check, RefreshCw } from "lucide-react";
+import { ChevronLeft, Send, ClipboardCheck, Sparkles, X, Check, RefreshCw, Mic, MicOff } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
