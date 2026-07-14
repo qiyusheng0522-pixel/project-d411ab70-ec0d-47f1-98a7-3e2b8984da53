@@ -317,11 +317,6 @@ function ResultPage() {
     );
   }
 
-  const primary = problems[0]?.tone ?? "ok";
-  const bodyTint =
-    primary === "danger" ? "text-rose-200/70"
-    : primary === "warn" ? "text-amber-200/80"
-    : "text-sky-200/70";
 
   type RingTag = { label: string; tone: Tone; active: boolean; kind: "disease" | "life" };
 
