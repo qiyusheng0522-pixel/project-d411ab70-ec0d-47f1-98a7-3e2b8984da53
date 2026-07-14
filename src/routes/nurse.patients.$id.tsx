@@ -106,7 +106,7 @@ function NursePatientDetail() {
         </div>
       </section>
 
-      <section className="mx-3 mt-3 grid grid-cols-4 gap-2">
+      <section className={"mx-3 mt-3 grid gap-2 " + ((p.stage === "院外" || p.stage === "待出院") ? "grid-cols-4" : "grid-cols-3")}>
         <button
           onClick={() => setChatOpen(true)}
           className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95"
