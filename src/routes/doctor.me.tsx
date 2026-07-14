@@ -8,16 +8,19 @@ import {
 
 export const Route = createFileRoute("/doctor/me")({ component: DoctorMe });
 
+const workload = [
+  { icon: FileCheck2, color: "text-amber-600", bg: "bg-amber-100", value: "63", label: "审核数量" },
+  { icon: MessageSquare, color: "text-sky-600", bg: "bg-sky-100", value: "42", label: "沟通患者" },
+  { icon: Clock, color: "text-violet-600", bg: "bg-violet-100", value: "72h", label: "在线时长" },
+  { icon: CircleDollarSign, color: "text-emerald-600", bg: "bg-emerald-100", value: "¥0", label: "收益金额" },
+];
+
 const groups = [
   {
     title: "工作与数据",
     items: [
       { icon: BarChart3, label: "工作统计", sub: "本月接诊 42 · 方案 18", to: "/doctor/stats" as const },
       { icon: Wallet, label: "收益结算", sub: "本月 ¥0 · 待结算 ¥0", to: "/doctor" as const },
-      { icon: FileCheck2, label: "审核数量", sub: "本月 63 单 · 待审核 8", to: "/doctor/plans" as const },
-      { icon: MessageSquare, label: "沟通患者", sub: "本月 42 位 · 会话 428 条", to: "/doctor/chat" as const },
-      { icon: Clock, label: "在线时长", sub: "本月 72h · 日均 3.4h", to: "/doctor" as const },
-      { icon: CircleDollarSign, label: "收益金额", sub: "本月 ¥0 · 待结算 ¥0", to: "/doctor" as const },
     ],
   },
   {
@@ -29,6 +32,7 @@ const groups = [
       { icon: Award, label: "患者满意度", sub: "4.9 · 近 90 天 218 条评价", to: "/doctor/stats" as const },
     ],
   },
+
   {
     title: "偏好设置",
     items: [
@@ -50,6 +54,29 @@ function DoctorMe() {
         </div>
         <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-emerald-600">在岗</span>
       </section>
+
+      <section className="mx-3 mt-3 rounded-2xl bg-card p-4 shadow-[var(--shadow-card)]">
+        <div className="mb-3 flex items-center justify-between">
+          <p className="text-sm font-bold text-foreground">本月工作量概览</p>
+          <span className="text-[11px] text-muted-foreground">7 月 1 日 - 今日</span>
+        </div>
+        <div className="grid grid-cols-4 gap-2">
+          {workload.map((w) => {
+            const Icon = w.icon;
+            return (
+              <div key={w.label} className="rounded-xl bg-muted/40 py-3 text-center">
+                <div className={`mx-auto grid size-8 place-items-center rounded-lg ${w.bg}`}>
+                  <Icon className={`size-4 ${w.color}`} />
+                </div>
+                <p className={`mt-1.5 text-base font-bold ${w.color}`}>{w.value}</p>
+                <p className="text-[10px] text-muted-foreground">{w.label}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+
 
       {groups.map((g) => (
         <section key={g.title} className="mx-3 mt-3 rounded-2xl bg-card shadow-[var(--shadow-card)]">
