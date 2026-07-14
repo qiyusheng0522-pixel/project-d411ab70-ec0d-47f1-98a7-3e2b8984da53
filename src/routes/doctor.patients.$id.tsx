@@ -54,7 +54,8 @@ function PatientDetail() {
               key={a.label}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               to={a.to as any}
-              params={a.to.includes("$id") ? { id: p.id } : undefined}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              params={(a.to.includes("$id") ? { id: p.id } : undefined) as any}
               className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-xs shadow-[var(--shadow-card)] active:scale-95"
             >
               <Icon className="size-5 text-sky-600" />
